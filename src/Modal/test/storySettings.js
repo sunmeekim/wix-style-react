@@ -10,8 +10,3 @@ export const testStories = {
   modalBackgroundScroll: 'Prevent modal background scroll',
   modalHeaderCutsOffWithLargeContent: 'Modal should be scrollable when there is lots of content',
 };
-
-export const msgBoxTypes = {
-  functional: 'functional',
-  marketerial: 'marketerial',
-};

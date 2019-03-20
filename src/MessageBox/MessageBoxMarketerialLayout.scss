@@ -6,7 +6,10 @@
   width: 600px;
   background-color: #fff;
   border-radius: 8px;
+  overflow-y: hidden;
+  max-height: 100vh;
 }
+
 $headerHeight: 120px;
 $headerImageHeight: 185px;
 .header {
@@ -55,9 +58,15 @@ $headerImageHeight: 185px;
 
 .title {
   width: 384px;
-  margin: 0 auto 19px auto;
+  margin: 0 auto 20px auto;
   text-align: center;
   color: $D10;
+}
+
+.titleContent{
+  overflow-y: auto;
+  max-height: 600px;
+  margin-bottom: 48px;
 }
 
 .content {
@@ -66,7 +75,6 @@ $headerImageHeight: 185px;
   margin-right: auto;
   text-align: center;
   color: $D10;
-  margin-bottom: 48px;
 }
 
 .buttons-container {

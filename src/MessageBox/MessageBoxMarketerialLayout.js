@@ -52,14 +52,16 @@ class MessageBoxMarketerialLayout extends WixComponent {
             </div>
           )}
         </div>
-        <div className={styles.title} data-hook="message-box-title">
-          <Heading appearance="H1">{title}</Heading>
-        </div>
-        <div className={styles.content}>
-          <Text size="medium" weight="thin">
-            {content}
-          </Text>
-        </div>
+          <div className={styles.titleContent}>
+            <div className={styles.title} data-hook="message-box-title">
+              <Heading appearance="H1">{title}</Heading>
+            </div>
+            <div className={styles.content}>
+              <Text size="medium" weight="thin">
+                {content}
+              </Text>
+            </div>
+          </div>
         <div className={styles.buttonsContainer}>
           {primaryButtonLabel ? (
             <div className={styles.primaryButtonContainer}>
@@ -88,8 +90,9 @@ class MessageBoxMarketerialLayout extends WixComponent {
           <div
             data-hook="footer-layout-bottom-children"
             className={styles.bottomChildren}
-            children={footerBottomChildren}
-          />
+          >
+            {footerBottomChildren}
+          </div>
         ) : null}
       </div>
     );
