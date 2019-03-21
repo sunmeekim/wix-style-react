@@ -42,26 +42,34 @@ class ControlledModal extends React.Component {
     isOpen: PropTypes.bool,
   };
 
-  constructor({ isOpen = false }) {
+  constructor({isOpen = false}) {
     super();
     this.state = {
       isOpenFunctionalModal: isOpen,
-      isOpenModalWithDatePicker: false,
+      isOpenMarketerialModal: false,
+      isOpenDivModal: false,
     };
   }
 
   render() {
     const setState = state => () => this.setState(state);
-    const closeFunctionalModal = setState({ isOpenFunctionalModal: false });
-    const openFunctionalModal = setState({ isOpenFunctionalModal: true });
+    const closeFunctionalModal = setState({isOpenFunctionalModal: false});
+    const openFunctionalModal = setState({isOpenFunctionalModal: true});
 
-    const closeMarketerialModal = setState({ isOpenMarketerialModal: false });
-    const openMarketerialModal = setState({ isOpenMarketerialModal: true });
+    const closeMarketerialModal = setState({isOpenMarketerialModal: false});
+    const openMarketerialModal = setState({isOpenMarketerialModal: true});
+
+    const closeModalRegularDiv = setState({isOpenDivModal: false});
+    const openModalRegularDiv = setState({isOpenDivModal: true});
 
     const stringToRepeat = `I Have a close button on the upper right corner but its impossible to
           press without deleting the github creature first using the console`;
 
     const repeatCount = 100;
+
+    const children = <div style={{backgroundColor: 'white', width: '500px'}}>
+      {stringToRepeat.repeat(repeatCount)}
+    </div>;
 
     return (
       <Container>
@@ -72,7 +80,7 @@ class ControlledModal extends React.Component {
               isOpen={this.state.isOpenFunctionalModal}
               onRequestClose={closeFunctionalModal}
               contentLabel="Modal Example"
-              scrollableContent={false}
+              scrollableContent={true}
             >
               <MessageBoxFunctionalLayout
                 dataHook={storySettings.dataHook}
@@ -95,7 +103,7 @@ class ControlledModal extends React.Component {
               isOpen={this.state.isOpenMarketerialModal}
               onRequestClose={closeMarketerialModal}
               contentLabel="Modal Example"
-              scrollableContent={false}
+              scrollableContent={true}
             >
               <MessageBoxMarketerialLayout
                 title="Looking good! Your site is on Google"
@@ -110,6 +118,20 @@ class ControlledModal extends React.Component {
                 onPrimaryButtonClick={closeMarketerialModal}
                 onSecondaryButtonClick={closeMarketerialModal}
               />
+            </Modal>
+          </Col>
+          <Col span={3}>
+            <Button onClick={openModalRegularDiv}>
+              Modal with a regular big div element
+            </Button>
+            <Modal
+              isOpen={this.state.isOpenDivModal}
+              onRequestClose={closeModalRegularDiv}
+              shouldDisplayCloseButton
+              contentLabel="Modal With Close Button Example"
+              scrollableContent={true}
+              children={children}
+            >
             </Modal>
           </Col>
         </Row>

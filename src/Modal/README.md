@@ -25,3 +25,4 @@
 | appElement | string | - | false | selector spcifying where to apply the aria-hidden attribute  |
 | overlayPosition | static, relative, absolute, fixed, sticky | fixed | - | css position of the modal overlay |
 | parentSelector | func | - | - | A function that returns a DOM element on which the modal should be appended to |
+| children | any | - | - | Children nodes rendered within the Modal
