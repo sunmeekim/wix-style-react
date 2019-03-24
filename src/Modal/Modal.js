@@ -45,7 +45,7 @@ class Modal extends WixComponent {
     closeTimeoutMS: 500,
     scrollable: true,
     scrollableContent: false,
-    height: '100%',
+    height: '100vh',
     maxHeight: 'auto',
     overlayPosition: 'fixed',
   };
@@ -98,7 +98,7 @@ class Modal extends WixComponent {
       content: {
         // Overriding defaults
         border: 'none',
-        overflowY: scrollableContent ? 'auto' : 'initial',
+        overflowY: 'hidden',
         overflowX: scrollableContent ? 'hidden' : 'initial',
         height,
         maxHeight,
@@ -106,11 +106,11 @@ class Modal extends WixComponent {
         WebkitOverflowScrolling: 'touch',
         outline: 'none',
         borderRadius,
-        padding: '0px',
         // Overriding defaults - END
         backgroundColor: 'transparent',
         marginBottom: '0px',
         position: 'relative',
+        padding: '48px',
       },
     };
 
