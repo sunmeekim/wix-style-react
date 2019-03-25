@@ -114,7 +114,7 @@ class Modal extends WixComponent {
         display: 'flex',
         flexDirection: 'column',
         justifyContent,
-        alignItems
+        alignItems,
       },
     };
 
