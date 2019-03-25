@@ -54,25 +54,26 @@ class ControlledModal extends React.Component {
     const closeModalRegularDiv1 = setState({ isOpenDivModal1: false });
     const openModalRegularDiv1 = setState({ isOpenDivModal1: true });
 
-
     const closeModalRegularDiv2 = setState({ isOpenDivModal2: false });
     const openModalRegularDiv2 = setState({ isOpenDivModal2: true });
 
     const firstExample = (
-      <div style={{ backgroundColor: 'blue' , width: '500px', height: '3000px'}} />
+      <div
+        style={{ backgroundColor: 'blue', width: '500px', height: '3000px' }}
+      />
     );
 
     const secondExample = (
-      <div style={{ backgroundColor: 'blue', width: '500px', height: '300px'}} />
+      <div
+        style={{ backgroundColor: 'blue', width: '500px', height: '300px' }}
+      />
     );
 
     return (
       <Container>
         <Row>
           <Col span={3}>
-            <Button onClick={openModalRegularDiv1}>
-              Example 1
-            </Button>
+            <Button onClick={openModalRegularDiv1}>Example 1</Button>
             <Modal
               isOpen={this.state.isOpenDivModal1}
               onRequestClose={closeModalRegularDiv1}
@@ -85,9 +86,7 @@ class ControlledModal extends React.Component {
             </Modal>
           </Col>
           <Col span={3}>
-            <Button onClick={openModalRegularDiv2}>
-              Example 2
-            </Button>
+            <Button onClick={openModalRegularDiv2}>Example 2</Button>
             <Modal
               isOpen={this.state.isOpenDivModal2}
               onRequestClose={closeModalRegularDiv2}
