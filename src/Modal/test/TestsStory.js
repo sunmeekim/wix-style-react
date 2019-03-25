@@ -58,20 +58,12 @@ class ControlledModal extends React.Component {
     const closeModalRegularDiv2 = setState({ isOpenDivModal2: false });
     const openModalRegularDiv2 = setState({ isOpenDivModal2: true });
 
-
-    const stringToRepeat = `I Have a close button on the upper right corner but its impossible to
-          press without deleting the github creature first using the console`;
-
     const firstExample = (
-      <div style={{ backgroundColor: 'white' , overflowY: 'auto' , maxHeight: `calc(100vh - 2 * 48px)`}}>
-        {stringToRepeat.repeat(100)}
-      </div>
+      <div style={{ backgroundColor: 'blue' , width: '500px', height: '3000px'}} />
     );
 
     const secondExample = (
-      <div style={{ backgroundColor: 'white', overflowY: 'auto', maxHeight: '500px'}}>
-        {stringToRepeat.repeat(5)}
-      </div>
+      <div style={{ backgroundColor: 'blue', width: '500px', height: '300px'}} />
     );
 
     return (
@@ -88,8 +80,9 @@ class ControlledModal extends React.Component {
               contentLabel="Modal With Close Button Example"
               scrollableContent
               maxHeight={'100vh'}
-              children={firstExample}
-            />
+            >
+              {firstExample}
+            </Modal>
           </Col>
           <Col span={3}>
             <Button onClick={openModalRegularDiv2}>
@@ -100,9 +93,9 @@ class ControlledModal extends React.Component {
               onRequestClose={closeModalRegularDiv2}
               shouldDisplayCloseButton
               contentLabel="Modal With Close Button Example"
-              scrollableContent
-              children={secondExample}
-            />
+            >
+              {secondExample}
+            </Modal>
           </Col>
         </Row>
       </Container>
