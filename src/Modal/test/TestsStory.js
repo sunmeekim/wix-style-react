@@ -57,14 +57,16 @@ class ControlledModal extends React.Component {
     const closeModalRegularDiv2 = setState({ isOpenDivModal2: false });
     const openModalRegularDiv2 = setState({ isOpenDivModal2: true });
 
-
     return (
       <Container>
         <Row>
           <Col span={3}>
-            <Button onClick={openModalRegularDiv1}
-                    dataHook='scrollable-modal-button'
-            >Example 1</Button>
+            <Button
+              onClick={openModalRegularDiv1}
+              dataHook="scrollable-modal-button"
+            >
+              Example 1
+            </Button>
             <Modal
               isOpen={this.state.isOpenDivModal1}
               onRequestClose={closeModalRegularDiv1}
@@ -73,10 +75,39 @@ class ControlledModal extends React.Component {
               scrollableContent
               maxHeight={'100vh'}
             >
-              <div data-hook="modal-content-div" style={{ width: '500px', height: '3000px' }}>
-                <div data-hook="displayed-div" style={{ backgroundColor: 'yellow', width: '500px', height: '50px' }}><b> Div Displayed </b></div>
-                <div style={{ backgroundColor: 'green', width: '500px', height: '2900px' }}> </div>
-                <div data-hook="scroll-here-div" style={{ backgroundColor: 'yellow', width: '500px', height: '50px' }}><b> Scroll Here </b></div>
+              <div
+                data-hook="modal-content-div"
+                style={{ width: '500px', height: '3000px' }}
+              >
+                <div
+                  data-hook="displayed-div"
+                  style={{
+                    backgroundColor: 'yellow',
+                    width: '500px',
+                    height: '50px',
+                  }}
+                >
+                  <b> Div Displayed </b>
+                </div>
+                <div
+                  style={{
+                    backgroundColor: 'green',
+                    width: '500px',
+                    height: '2900px',
+                  }}
+                >
+                  {' '}
+                </div>
+                <div
+                  data-hook="scroll-here-div"
+                  style={{
+                    backgroundColor: 'yellow',
+                    width: '500px',
+                    height: '50px',
+                  }}
+                >
+                  <b> Scroll Here </b>
+                </div>
               </div>
             </Modal>
           </Col>
@@ -89,7 +120,11 @@ class ControlledModal extends React.Component {
               contentLabel="Modal With Close Button Example"
             >
               <div
-                style={{ backgroundColor: 'blue', width: '500px', height: '300px' }}
+                style={{
+                  backgroundColor: 'blue',
+                  width: '500px',
+                  height: '300px',
+                }}
               />
             </Modal>
           </Col>
