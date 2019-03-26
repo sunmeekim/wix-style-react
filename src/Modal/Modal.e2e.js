@@ -10,7 +10,7 @@ import {
   scrollToElement,
 } from 'wix-ui-test-utils/protractor';
 
-//we want to take snapshots both at the beginning and end of the test
+//we want to take snapshots both at the beginning and end of the tests
 const eyes = eyesItInstance({ enableSnapshotAtBrowserGet: true });
 
 const { category, storyName } = storySettings;
@@ -55,12 +55,6 @@ describe('Modal', () => {
       by.css(`[data-hook="${testPageDataHooks.footerDiv}"]`),
     );
 
-    const getDivBoundingClientRect = dataHook =>
-      `return document.querySelector("[data-hook='${dataHook}']").getBoundingClientRect();`;
-
-    const getElementCoordinatesByDataHook = dataHook =>
-      browser.executeScript(getDivBoundingClientRect(dataHook));
-
     eyes.it(
       'should not break design when scrolling a scrollable content',
       async () => {
@@ -75,21 +69,9 @@ describe('Modal', () => {
           'Cannot find modalContentDiv',
         );
 
-        const headerPositionBeforeScroll = await getElementCoordinatesByDataHook(
-          testPageDataHooks.headerDiv,
-        );
-
         await scrollToElement(footerDiv);
 
-        const headerPositionAfterScroll = await getElementCoordinatesByDataHook(
-          testPageDataHooks.headerDiv,
-        );
-
-        //scroll has occur
-        //TODO - calculate exact scrolling (confidence that scroll worked)
-        expect(headerPositionBeforeScroll.y).not.toEqual(
-          headerPositionAfterScroll.y,
-        );
+        //Making sure scroll has occurred by the Applitools snapshots
       },
     );
 
@@ -107,20 +89,9 @@ describe('Modal', () => {
           'Cannot find modalContentDiv',
         );
 
-        const headerPositionBeforeScroll = await getElementCoordinatesByDataHook(
-          testPageDataHooks.headerDiv,
-        );
-
         await scrollToElement(footerDiv);
 
-        const headerPositionAfterScroll = await getElementCoordinatesByDataHook(
-          testPageDataHooks.headerDiv,
-        );
-
-        //scroll has not occur
-        expect(headerPositionBeforeScroll.y).toEqual(
-          headerPositionAfterScroll.y,
-        );
+        //Making sure scroll has NOT occurred by the Applitools snapshots
       },
     );
   });
