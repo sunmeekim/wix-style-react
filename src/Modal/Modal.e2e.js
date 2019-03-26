@@ -28,23 +28,36 @@ describe('Modal', () => {
   describe('content', () => {
     const until = protractor.ExpectedConditions;
     const DATA_HOOKS = {
-      scrollableModalButton: 'scrollable-modal-button',
-      scrollHereDiv: 'scroll-here-div',
-      displayedDiv: 'displayed-div',
       modalContentDiv: 'modal-content-div',
+      scrollableModalButton: 'scrollable-modal-button',
+      nonScrollableModalButton: 'non-scrollable-modal-button',
+      headerDiv: 'header-div',
+      contentDiv: 'content-div',
+      footerDiv: 'footer-div',
     };
 
     const scrollableModalButton = element(
       by.css(`[data-hook="${DATA_HOOKS.scrollableModalButton}"]`),
     );
-    const contentDiv = element(
+
+    const nonScrollableModalButton = element(
+      by.css(`[data-hook="${DATA_HOOKS.nonScrollableModalButton}"]`),
+    );
+
+    const modalContentDiv = element(
       by.css(`[data-hook="${DATA_HOOKS.modalContentDiv}"]`),
     );
-    const scrollHereDiv = element(
-      by.css(`[data-hook="${DATA_HOOKS.scrollHereDiv}"]`),
+
+    const headerDiv = element(
+      by.css(`[data-hook="${DATA_HOOKS.headerDiv}"]`),
     );
-    const displayedDiv = element(
-      by.css(`[data-hook="${DATA_HOOKS.displayedDiv}"]`),
+
+    const contentDiv = element(
+      by.css(`[data-hook="${DATA_HOOKS.contentDiv}"]`),
+    );
+
+    const footerDiv = element(
+      by.css(`[data-hook="${DATA_HOOKS.footerDiv}"]`),
     );
 
     const getDivBoundingClientRect = dataHook =>
@@ -54,7 +67,7 @@ describe('Modal', () => {
       const beforeScroll = await browser.executeScript(
         getDivBoundingClientRect(dataHook),
       );
-      await scrollToElement(scrollHereDiv);
+      await scrollToElement(footerDiv);
       const afterScroll = await browser.executeScript(
         getDivBoundingClientRect(dataHook),
       );
@@ -63,7 +76,7 @@ describe('Modal', () => {
     };
 
     eyes.it(
-      'should display scrollHereDiv in viewport after it is scrolled',
+      'should display footerDiv in viewport after it is scrolled',
       async () => {
         await browser.get(
           testStoryUrl(testStories.modalHeaderCutsOffWithLargeContent),
@@ -75,14 +88,14 @@ describe('Modal', () => {
         );
         await scrollableModalButton.click();
 
-        await waitForVisibilityOf(contentDiv, 'Cannot find contentDiv');
-        await browser.wait(until.presenceOf(scrollHereDiv), 5000); //div is currently not in viewport
+        await waitForVisibilityOf(modalContentDiv, 'Cannot find modalContentDiv');
+        await browser.wait(until.presenceOf(footerDiv), 5000); //footer div is currently not in viewport
 
         const {
           yBeforeScroll,
           yAfterScroll,
         } = await getDivYCoordinateBeforeAndAfterScroll(
-          DATA_HOOKS.scrollHereDiv,
+          DATA_HOOKS.footerDiv,
         );
 
         expect(yBeforeScroll === yAfterScroll).toBe(false);
@@ -90,7 +103,7 @@ describe('Modal', () => {
     );
 
     eyes.it(
-      'should not display displayedDiv in viewport after it is scrolled',
+      'should NOT display headerDiv in viewport after it is scrolled',
       async () => {
         await browser.get(
           testStoryUrl(testStories.modalHeaderCutsOffWithLargeContent),
@@ -102,20 +115,65 @@ describe('Modal', () => {
         );
         await scrollableModalButton.click();
 
-        await waitForVisibilityOf(contentDiv, 'Cannot find contentDiv');
-        await waitForVisibilityOf(displayedDiv, 'Cannot find displayedDiv'); //div is currently in viewport
+        await waitForVisibilityOf(modalContentDiv, 'Cannot find modalContentDiv');
+        await waitForVisibilityOf(headerDiv, 'Cannot find headerDiv'); //div is currently in viewport
 
         const {
           yBeforeScroll,
           yAfterScroll,
         } = await getDivYCoordinateBeforeAndAfterScroll(
-          DATA_HOOKS.displayedDiv,
+          DATA_HOOKS.headerDiv,
         );
 
         expect(yBeforeScroll === yAfterScroll).toBe(false);
       },
     );
 
-    //TODO: create another test for a div without scrolling and making sure the y coordinate stays the same when trying to scroll
+    eyes.it(
+      'should NOT scroll modalContentDiv when all its content is displayed in viewport',
+      async () => {
+        await browser.get(
+          testStoryUrl(testStories.modalHeaderCutsOffWithLargeContent),
+        );
+
+        await waitForVisibilityOf(
+          nonScrollableModalButton,
+          'Cannot find nonScrollableModalButton',
+        );
+        await nonScrollableModalButton.click();
+
+        await waitForVisibilityOf(modalContentDiv, 'Cannot find modalContentDiv');
+        await waitForVisibilityOf(headerDiv, 'Cannot find headerDiv');
+        await waitForVisibilityOf(contentDiv, 'Cannot find contentDiv');
+        await waitForVisibilityOf(footerDiv, 'Cannot find footerDiv');
+
+        const {
+          yBeforeScrollHeader,
+          yAfterScrollHeader,
+        } = await getDivYCoordinateBeforeAndAfterScroll(
+          DATA_HOOKS.headerDiv,
+        );
+
+        expect(yBeforeScrollHeader === yAfterScrollHeader).toBe(true);
+
+        const {
+          yBeforeScrollContent,
+          yAfterScrollContent,
+        } = await getDivYCoordinateBeforeAndAfterScroll(
+          DATA_HOOKS.contentDiv,
+        );
+
+        expect(yBeforeScrollContent === yAfterScrollContent).toBe(true);
+
+        const {
+          yBeforeScrollFooter,
+          yAfterScrollFooter,
+        } = await getDivYCoordinateBeforeAndAfterScroll(
+          DATA_HOOKS.footerDiv,
+        );
+
+        expect(yBeforeScrollFooter === yAfterScrollFooter).toBe(true);
+      },
+    );
   });
 });

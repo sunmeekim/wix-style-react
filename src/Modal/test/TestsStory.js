@@ -57,6 +57,40 @@ class ControlledModal extends React.Component {
     const closeModalRegularDiv2 = setState({ isOpenDivModal2: false });
     const openModalRegularDiv2 = setState({ isOpenDivModal2: true });
 
+
+    const contentDiv = height => (<div
+      data-hook="content-div"
+      style={{
+        backgroundColor: 'green',
+        width: '500px',
+        height: height,
+      }}
+    >
+      <b> Content </b>
+    </div>);
+
+    const headerDiv = <div
+        data-hook="header-div"
+        style={{
+          backgroundColor: 'yellow',
+          width: '500px',
+          height: '50px',
+        }}
+      >
+        <b> Header </b>
+      </div>;
+
+      const footerDiv = <div
+        data-hook="footer-div"
+        style={{
+          backgroundColor: 'yellow',
+          width: '500px',
+          height: '50px',
+        }}
+      >
+        <b> Footer </b>
+      </div>;
+
     return (
       <Container>
         <Row>
@@ -75,57 +109,31 @@ class ControlledModal extends React.Component {
               scrollableContent
               maxHeight={'100vh'}
             >
-              <div
-                data-hook="modal-content-div"
-                style={{ width: '500px', height: '3000px' }}
-              >
-                <div
-                  data-hook="displayed-div"
-                  style={{
-                    backgroundColor: 'yellow',
-                    width: '500px',
-                    height: '50px',
-                  }}
-                >
-                  <b> Div Displayed </b>
-                </div>
-                <div
-                  style={{
-                    backgroundColor: 'green',
-                    width: '500px',
-                    height: '2900px',
-                  }}
-                >
-                  {' '}
-                </div>
-                <div
-                  data-hook="scroll-here-div"
-                  style={{
-                    backgroundColor: 'yellow',
-                    width: '500px',
-                    height: '50px',
-                  }}
-                >
-                  <b> Scroll Here </b>
-                </div>
+              <div data-hook="modal-content-div" >
+                {headerDiv}
+                {contentDiv('2900px')}
+                {footerDiv}
               </div>
             </Modal>
           </Col>
           <Col span={3}>
-            <Button onClick={openModalRegularDiv2}>Example 2</Button>
+            <Button
+              onClick={openModalRegularDiv2}
+              dataHook="non-scrollable-modal-button"
+            >
+              Example 2
+            </Button>
             <Modal
               isOpen={this.state.isOpenDivModal2}
               onRequestClose={closeModalRegularDiv2}
               shouldDisplayCloseButton
               contentLabel="Modal With Close Button Example"
             >
-              <div
-                style={{
-                  backgroundColor: 'blue',
-                  width: '500px',
-                  height: '300px',
-                }}
-              />
+              <div data-hook="modal-content-div" >
+                {headerDiv}
+                {contentDiv('50px')}
+                {footerDiv}
+              </div>
             </Modal>
           </Col>
         </Row>
