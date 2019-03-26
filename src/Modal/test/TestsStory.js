@@ -44,32 +44,34 @@ class ControlledModal extends React.Component {
   constructor({ isOpen = false }) {
     super();
     this.state = {
-      isOpenDivModal1: isOpen,
-      isOpenDivModal2: false,
+      isOpenScrollableDivModal: isOpen,
+      isOpenNonScrollableDivModal: false,
     };
   }
 
   render() {
     const setState = state => () => this.setState(state);
-    const closeModalRegularDiv1 = setState({ isOpenDivModal1: false });
-    const openModalRegularDiv1 = setState({ isOpenDivModal1: true });
+    const closeModalScrollableDiv = setState({ isOpenScrollableDivModal: false });
+    const openModalScrollableDiv = setState({ isOpenScrollableDivModal: true });
 
-    const closeModalRegularDiv2 = setState({ isOpenDivModal2: false });
-    const openModalRegularDiv2 = setState({ isOpenDivModal2: true });
+    const closeModalNonScrollableDiv = setState({ isOpenNonScrollableDivModal: false });
+    const openModalNonScrollableDiv = setState({ isOpenNonScrollableDivModal: true });
 
+    const contentDiv = height => (
+      <div
+        data-hook="content-div"
+        style={{
+          backgroundColor: 'green',
+          width: '500px',
+          height: height,
+        }}
+      >
+        <b> Content </b>
+      </div>
+    );
 
-    const contentDiv = height => (<div
-      data-hook="content-div"
-      style={{
-        backgroundColor: 'green',
-        width: '500px',
-        height: height,
-      }}
-    >
-      <b> Content </b>
-    </div>);
-
-    const headerDiv = <div
+    const headerDiv = (
+      <div
         data-hook="header-div"
         style={{
           backgroundColor: 'yellow',
@@ -78,9 +80,11 @@ class ControlledModal extends React.Component {
         }}
       >
         <b> Header </b>
-      </div>;
+      </div>
+    );
 
-      const footerDiv = <div
+    const footerDiv = (
+      <div
         data-hook="footer-div"
         style={{
           backgroundColor: 'yellow',
@@ -89,27 +93,28 @@ class ControlledModal extends React.Component {
         }}
       >
         <b> Footer </b>
-      </div>;
+      </div>
+    );
 
     return (
       <Container>
         <Row>
           <Col span={3}>
             <Button
-              onClick={openModalRegularDiv1}
+              onClick={openModalScrollableDiv}
               dataHook="scrollable-modal-button"
             >
-              Example 1
+              Scrollable div Example
             </Button>
             <Modal
-              isOpen={this.state.isOpenDivModal1}
-              onRequestClose={closeModalRegularDiv1}
+              isOpen={this.state.isOpenScrollableDivModal}
+              onRequestClose={closeModalScrollableDiv}
               shouldDisplayCloseButton
-              contentLabel="Modal With Close Button Example"
+              contentLabel="Modal With Scrollable div"
               scrollableContent
               maxHeight={'100vh'}
             >
-              <div data-hook="modal-content-div" >
+              <div data-hook="modal-content-div">
                 {headerDiv}
                 {contentDiv('2900px')}
                 {footerDiv}
@@ -118,18 +123,18 @@ class ControlledModal extends React.Component {
           </Col>
           <Col span={3}>
             <Button
-              onClick={openModalRegularDiv2}
+              onClick={openModalNonScrollableDiv}
               dataHook="non-scrollable-modal-button"
             >
-              Example 2
+              Non Scrollable div Example
             </Button>
             <Modal
-              isOpen={this.state.isOpenDivModal2}
-              onRequestClose={closeModalRegularDiv2}
+              isOpen={this.state.isOpenNonScrollableDivModal}
+              onRequestClose={closeModalNonScrollableDiv}
               shouldDisplayCloseButton
-              contentLabel="Modal With Close Button Example"
+              contentLabel="Modal With Non Scrollable div"
             >
-              <div data-hook="modal-content-div" >
+              <div data-hook="modal-content-div">
                 {headerDiv}
                 {contentDiv('50px')}
                 {footerDiv}

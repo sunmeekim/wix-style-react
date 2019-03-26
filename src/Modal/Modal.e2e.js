@@ -48,17 +48,13 @@ describe('Modal', () => {
       by.css(`[data-hook="${DATA_HOOKS.modalContentDiv}"]`),
     );
 
-    const headerDiv = element(
-      by.css(`[data-hook="${DATA_HOOKS.headerDiv}"]`),
-    );
+    const headerDiv = element(by.css(`[data-hook="${DATA_HOOKS.headerDiv}"]`));
 
     const contentDiv = element(
       by.css(`[data-hook="${DATA_HOOKS.contentDiv}"]`),
     );
 
-    const footerDiv = element(
-      by.css(`[data-hook="${DATA_HOOKS.footerDiv}"]`),
-    );
+    const footerDiv = element(by.css(`[data-hook="${DATA_HOOKS.footerDiv}"]`));
 
     const getDivBoundingClientRect = dataHook =>
       `return document.querySelector("[data-hook='${dataHook}']").getBoundingClientRect();`;
@@ -88,15 +84,16 @@ describe('Modal', () => {
         );
         await scrollableModalButton.click();
 
-        await waitForVisibilityOf(modalContentDiv, 'Cannot find modalContentDiv');
+        await waitForVisibilityOf(
+          modalContentDiv,
+          'Cannot find modalContentDiv',
+        );
         await browser.wait(until.presenceOf(footerDiv), 5000); //footer div is currently not in viewport
 
         const {
           yBeforeScroll,
           yAfterScroll,
-        } = await getDivYCoordinateBeforeAndAfterScroll(
-          DATA_HOOKS.footerDiv,
-        );
+        } = await getDivYCoordinateBeforeAndAfterScroll(DATA_HOOKS.footerDiv);
 
         expect(yBeforeScroll === yAfterScroll).toBe(false);
       },
@@ -115,15 +112,16 @@ describe('Modal', () => {
         );
         await scrollableModalButton.click();
 
-        await waitForVisibilityOf(modalContentDiv, 'Cannot find modalContentDiv');
+        await waitForVisibilityOf(
+          modalContentDiv,
+          'Cannot find modalContentDiv',
+        );
         await waitForVisibilityOf(headerDiv, 'Cannot find headerDiv'); //div is currently in viewport
 
         const {
           yBeforeScroll,
           yAfterScroll,
-        } = await getDivYCoordinateBeforeAndAfterScroll(
-          DATA_HOOKS.headerDiv,
-        );
+        } = await getDivYCoordinateBeforeAndAfterScroll(DATA_HOOKS.headerDiv);
 
         expect(yBeforeScroll === yAfterScroll).toBe(false);
       },
@@ -142,7 +140,10 @@ describe('Modal', () => {
         );
         await nonScrollableModalButton.click();
 
-        await waitForVisibilityOf(modalContentDiv, 'Cannot find modalContentDiv');
+        await waitForVisibilityOf(
+          modalContentDiv,
+          'Cannot find modalContentDiv',
+        );
         await waitForVisibilityOf(headerDiv, 'Cannot find headerDiv');
         await waitForVisibilityOf(contentDiv, 'Cannot find contentDiv');
         await waitForVisibilityOf(footerDiv, 'Cannot find footerDiv');
@@ -150,27 +151,21 @@ describe('Modal', () => {
         const {
           yBeforeScrollHeader,
           yAfterScrollHeader,
-        } = await getDivYCoordinateBeforeAndAfterScroll(
-          DATA_HOOKS.headerDiv,
-        );
+        } = await getDivYCoordinateBeforeAndAfterScroll(DATA_HOOKS.headerDiv);
 
         expect(yBeforeScrollHeader === yAfterScrollHeader).toBe(true);
 
         const {
           yBeforeScrollContent,
           yAfterScrollContent,
-        } = await getDivYCoordinateBeforeAndAfterScroll(
-          DATA_HOOKS.contentDiv,
-        );
+        } = await getDivYCoordinateBeforeAndAfterScroll(DATA_HOOKS.contentDiv);
 
         expect(yBeforeScrollContent === yAfterScrollContent).toBe(true);
 
         const {
           yBeforeScrollFooter,
           yAfterScrollFooter,
-        } = await getDivYCoordinateBeforeAndAfterScroll(
-          DATA_HOOKS.footerDiv,
-        );
+        } = await getDivYCoordinateBeforeAndAfterScroll(DATA_HOOKS.footerDiv);
 
         expect(yBeforeScrollFooter === yAfterScrollFooter).toBe(true);
       },
