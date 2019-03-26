@@ -8,13 +8,13 @@ $minimum-modal-margin: 48px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  max-height: calc(100% - #{$minimum-modal-margin * 2});
-  max-width: calc(100% - #{$minimum-modal-margin * 2});
+  max-height: calc(100vh - #{$minimum-modal-margin * 2});
+  max-width: calc(100vh - #{$minimum-modal-margin * 2});
 }
 
 .fullscreen-container {
-  height: calc(100% - #{$minimum-modal-margin * 2});
-  width: calc(100% - #{$minimum-modal-margin * 2});
+  height: calc(100vh - #{$minimum-modal-margin * 2});
+  width: calc(100vh - #{$minimum-modal-margin * 2});
 }
 
 .content {

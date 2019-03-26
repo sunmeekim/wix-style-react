@@ -32,19 +32,8 @@ describe('Modal', () => {
   });
 
   describe('content', () => {
-    beforeEach(
-      async () =>
-        await browser.get(
-          testStoryUrl(testStories.modalHeaderCutsOffWithLargeContent),
-        ),
-    );
-
     const scrollableModalButton = element(
       by.css(`[data-hook="${testPageDataHooks.scrollableModalButton}"]`),
-    );
-
-    const nonScrollableModalButton = element(
-      by.css(`[data-hook="${testPageDataHooks.nonScrollableModalButton}"]`),
     );
 
     const modalContentDiv = element(
@@ -55,9 +44,19 @@ describe('Modal', () => {
       by.css(`[data-hook="${testPageDataHooks.footerDiv}"]`),
     );
 
+    const getDivBoundingClientRect = dataHook =>
+      `return document.querySelector("[data-hook='${dataHook}']").getBoundingClientRect();`;
+
+    const getElementCoordinatesByDataHook = dataHook =>
+      browser.executeScript(getDivBoundingClientRect(dataHook));
+
     eyes.it(
       'should not break design when scrolling a scrollable content',
       async () => {
+        await browser.get(
+          testStoryUrl(testStories.modalHeaderCutsOffWithLargeContent),
+        );
+
         await waitForVisibilityOf(
           scrollableModalButton,
           'Cannot find scrollableModalButton',
@@ -69,29 +68,21 @@ describe('Modal', () => {
           'Cannot find modalContentDiv',
         );
 
-        await scrollToElement(footerDiv);
-
-        //Making sure scroll has occurred by the Applitools snapshots
-      },
-    );
-
-    eyes.it(
-      'should not break design when scrolling a non-scrollable content',
-      async () => {
-        await waitForVisibilityOf(
-          nonScrollableModalButton,
-          'Cannot find nonScrollableModalButton',
-        );
-        await nonScrollableModalButton.click();
-
-        await waitForVisibilityOf(
-          modalContentDiv,
-          'Cannot find modalContentDiv',
+        const headerPositionBeforeScroll = await getElementCoordinatesByDataHook(
+          testPageDataHooks.headerDiv,
         );
 
         await scrollToElement(footerDiv);
 
-        //Making sure scroll has NOT occurred by the Applitools snapshots
+        const headerPositionAfterScroll = await getElementCoordinatesByDataHook(
+          testPageDataHooks.headerDiv,
+        );
+
+        //scroll has occurred
+        //TODO - calculate exact scrolling (confidence that scroll worked)
+        expect(headerPositionBeforeScroll.y).not.toEqual(
+          headerPositionAfterScroll.y,
+        );
       },
     );
   });

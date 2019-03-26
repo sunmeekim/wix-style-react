@@ -45,17 +45,15 @@ class ControlledModal extends React.Component {
     super();
     this.state = {
       isOpenScrollableDivModal: isOpen,
-      isOpenNonScrollableDivModal: false,
     };
   }
 
   render() {
     const setState = state => () => this.setState(state);
-    const closeModalScrollableDiv = setState({ isOpenScrollableDivModal: false });
+    const closeModalScrollableDiv = setState({
+      isOpenScrollableDivModal: false,
+    });
     const openModalScrollableDiv = setState({ isOpenScrollableDivModal: true });
-
-    const closeModalNonScrollableDiv = setState({ isOpenNonScrollableDivModal: false });
-    const openModalNonScrollableDiv = setState({ isOpenNonScrollableDivModal: true });
 
     const contentDiv = height => (
       <div
@@ -117,26 +115,6 @@ class ControlledModal extends React.Component {
               <div data-hook={testPageDataHooks.modalContentDiv}>
                 {headerDiv}
                 {contentDiv('2900px')}
-                {footerDiv}
-              </div>
-            </Modal>
-          </Col>
-          <Col span={3}>
-            <Button
-              onClick={openModalNonScrollableDiv}
-              dataHook={testPageDataHooks.nonScrollableModalButton}
-            >
-              Non Scrollable div Example
-            </Button>
-            <Modal
-              isOpen={this.state.isOpenNonScrollableDivModal}
-              onRequestClose={closeModalNonScrollableDiv}
-              shouldDisplayCloseButton
-              contentLabel="Modal With Non Scrollable div"
-            >
-              <div data-hook={testPageDataHooks.modalContentDiv}>
-                {headerDiv}
-                {contentDiv('50px')}
                 {footerDiv}
               </div>
             </Modal>
