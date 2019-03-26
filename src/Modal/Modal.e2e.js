@@ -15,6 +15,9 @@ const eyes = eyesItInstance({ enableSnapshotAtBrowserGet: true });
 
 const { category, storyName } = storySettings;
 
+const getElementByDataHook = (dataHook) => element(by.css(`[data-hook="${dataHook}"]`));
+
+
 describe('Modal', () => {
   const testStoryUrl = testName =>
     createTestStoryUrl({ category, storyName, testName });
@@ -22,7 +25,7 @@ describe('Modal', () => {
   eyes.it('should add overflow to body once it is open', async () => {
     await browser.get(testStoryUrl(testStories.modalBackgroundScroll));
     await waitForVisibilityOf(
-      element(by.css(`[data-hook="${storySettings.dataHook}"]`)),
+      getElementByDataHook(storySettings.dataHook),
       'Cannot find Modal component',
     );
     const body = element(by.css('body'));
@@ -32,17 +35,14 @@ describe('Modal', () => {
   });
 
   describe('content', () => {
-    const scrollableModalButton = element(
-      by.css(`[data-hook="${testPageDataHooks.scrollableModalButton}"]`),
-    );
+    const scrollableModalButton =
+      getElementByDataHook(testPageDataHooks.scrollableModalButton);
 
-    const modalContentDiv = element(
-      by.css(`[data-hook="${testPageDataHooks.modalContentDiv}"]`),
-    );
+    const modalContentDiv =
+      getElementByDataHook(testPageDataHooks.modalContentDiv);
 
-    const footerDiv = element(
-      by.css(`[data-hook="${testPageDataHooks.footerDiv}"]`),
-    );
+    const footerDiv =
+      getElementByDataHook(testPageDataHooks.footerDiv);
 
     const getDivBoundingClientRect = dataHook =>
       `return document.querySelector("[data-hook='${dataHook}']").getBoundingClientRect();`;
@@ -78,11 +78,9 @@ describe('Modal', () => {
           testPageDataHooks.headerDiv,
         );
 
-        //scroll has occurred
-        //TODO - calculate exact scrolling (confidence that scroll worked)
-        expect(headerPositionBeforeScroll.y).not.toEqual(
-          headerPositionAfterScroll.y,
-        );
+        const didScrollOccur = headerPositionBeforeScroll.y > headerPositionAfterScroll.y;
+
+        expect(didScrollOccur).toBe(true);
       },
     );
   });
