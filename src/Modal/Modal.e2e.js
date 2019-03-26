@@ -1,5 +1,9 @@
 import { eyesItInstance } from '../../test/utils/eyes-it';
-import { storySettings, testStories, testPageDataHooks } from './test/storySettings';
+import {
+  storySettings,
+  testStories,
+  testPageDataHooks,
+} from './test/storySettings';
 import { createTestStoryUrl } from '../../test/utils/storybook-helpers';
 import {
   waitForVisibilityOf,
@@ -7,7 +11,7 @@ import {
 } from 'wix-ui-test-utils/protractor';
 
 //we want to take snapshots both at the beginning and end of the test
-const eyes = eyesItInstance({enableSnapshotAtBrowserGet: true});
+const eyes = eyesItInstance({ enableSnapshotAtBrowserGet: true });
 
 const { category, storyName } = storySettings;
 
@@ -28,10 +32,12 @@ describe('Modal', () => {
   });
 
   describe('content', () => {
-
-    beforeEach(async () => await browser.get(
-      testStoryUrl(testStories.modalHeaderCutsOffWithLargeContent),
-    ));
+    beforeEach(
+      async () =>
+        await browser.get(
+          testStoryUrl(testStories.modalHeaderCutsOffWithLargeContent),
+        ),
+    );
 
     const scrollableModalButton = element(
       by.css(`[data-hook="${testPageDataHooks.scrollableModalButton}"]`),
@@ -45,14 +51,15 @@ describe('Modal', () => {
       by.css(`[data-hook="${testPageDataHooks.modalContentDiv}"]`),
     );
 
-    const footerDiv = element(by.css(`[data-hook="${testPageDataHooks.footerDiv}"]`));
+    const footerDiv = element(
+      by.css(`[data-hook="${testPageDataHooks.footerDiv}"]`),
+    );
 
     const getDivBoundingClientRect = dataHook =>
       `return document.querySelector("[data-hook='${dataHook}']").getBoundingClientRect();`;
 
-    const getElementCoordinatesByDataHook = dataHook => browser.executeScript(
-      getDivBoundingClientRect(dataHook),
-    ) ;
+    const getElementCoordinatesByDataHook = dataHook =>
+      browser.executeScript(getDivBoundingClientRect(dataHook));
 
     eyes.it(
       'should not break design when scrolling a scrollable content',
@@ -68,22 +75,27 @@ describe('Modal', () => {
           'Cannot find modalContentDiv',
         );
 
-        const headerPositionBeforeScroll = await getElementCoordinatesByDataHook(testPageDataHooks.headerDiv);
+        const headerPositionBeforeScroll = await getElementCoordinatesByDataHook(
+          testPageDataHooks.headerDiv,
+        );
 
         await scrollToElement(footerDiv);
 
-        const headerPositionAfterScroll = await getElementCoordinatesByDataHook(testPageDataHooks.headerDiv);
+        const headerPositionAfterScroll = await getElementCoordinatesByDataHook(
+          testPageDataHooks.headerDiv,
+        );
 
         //scroll has occur
         //TODO - calculate exact scrolling (confidence that scroll worked)
-        expect(headerPositionBeforeScroll.y).not.toEqual(headerPositionAfterScroll.y)
+        expect(headerPositionBeforeScroll.y).not.toEqual(
+          headerPositionAfterScroll.y,
+        );
       },
     );
 
     eyes.it(
       'should not break design when scrolling a non-scrollable content',
       async () => {
-
         await waitForVisibilityOf(
           nonScrollableModalButton,
           'Cannot find nonScrollableModalButton',
@@ -95,14 +107,20 @@ describe('Modal', () => {
           'Cannot find modalContentDiv',
         );
 
-        const headerPositionBeforeScroll = await getElementCoordinatesByDataHook(testPageDataHooks.headerDiv);
+        const headerPositionBeforeScroll = await getElementCoordinatesByDataHook(
+          testPageDataHooks.headerDiv,
+        );
 
         await scrollToElement(footerDiv);
 
-        const headerPositionAfterScroll = await getElementCoordinatesByDataHook(testPageDataHooks.headerDiv);
+        const headerPositionAfterScroll = await getElementCoordinatesByDataHook(
+          testPageDataHooks.headerDiv,
+        );
 
         //scroll has not occur
-        expect(headerPositionBeforeScroll.y).toEqual(headerPositionAfterScroll.y)
+        expect(headerPositionBeforeScroll.y).toEqual(
+          headerPositionAfterScroll.y,
+        );
       },
     );
   });
