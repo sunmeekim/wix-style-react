@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { getTestStoryKind } from '../../../stories/storiesHierarchy';
-import { storySettings, testStories } from './storySettings';
+import { storySettings, testStories, testPageDataHooks } from './storySettings';
 import Modal from '../Modal';
 import { MessageBoxFunctionalLayout } from '../../MessageBox/index';
 import PropTypes from 'prop-types';
@@ -59,7 +59,7 @@ class ControlledModal extends React.Component {
 
     const contentDiv = height => (
       <div
-        data-hook="content-div"
+        data-hook={testPageDataHooks.contentDiv}
         style={{
           backgroundColor: 'green',
           width: '500px',
@@ -72,7 +72,7 @@ class ControlledModal extends React.Component {
 
     const headerDiv = (
       <div
-        data-hook="header-div"
+        data-hook={testPageDataHooks.headerDiv}
         style={{
           backgroundColor: 'yellow',
           width: '500px',
@@ -85,7 +85,7 @@ class ControlledModal extends React.Component {
 
     const footerDiv = (
       <div
-        data-hook="footer-div"
+        data-hook={testPageDataHooks.footerDiv}
         style={{
           backgroundColor: 'yellow',
           width: '500px',
@@ -102,7 +102,7 @@ class ControlledModal extends React.Component {
           <Col span={3}>
             <Button
               onClick={openModalScrollableDiv}
-              dataHook="scrollable-modal-button"
+              dataHook={testPageDataHooks.scrollableModalButton}
             >
               Scrollable div Example
             </Button>
@@ -114,7 +114,7 @@ class ControlledModal extends React.Component {
               scrollableContent
               maxHeight={'100vh'}
             >
-              <div data-hook="modal-content-div">
+              <div data-hook={testPageDataHooks.modalContentDiv}>
                 {headerDiv}
                 {contentDiv('2900px')}
                 {footerDiv}
@@ -124,7 +124,7 @@ class ControlledModal extends React.Component {
           <Col span={3}>
             <Button
               onClick={openModalNonScrollableDiv}
-              dataHook="non-scrollable-modal-button"
+              dataHook={testPageDataHooks.nonScrollableModalButton}
             >
               Non Scrollable div Example
             </Button>
@@ -134,7 +134,7 @@ class ControlledModal extends React.Component {
               shouldDisplayCloseButton
               contentLabel="Modal With Non Scrollable div"
             >
-              <div data-hook="modal-content-div">
+              <div data-hook={testPageDataHooks.modalContentDiv}>
                 {headerDiv}
                 {contentDiv('50px')}
                 {footerDiv}

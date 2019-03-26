@@ -1,5 +1,5 @@
 import { eyesItInstance } from '../../test/utils/eyes-it';
-import { storySettings, testStories } from './test/storySettings';
+import { storySettings, testStories, testPageDataHooks } from './test/storySettings';
 import { createTestStoryUrl } from '../../test/utils/storybook-helpers';
 import {
   waitForVisibilityOf,
@@ -26,40 +26,35 @@ describe('Modal', () => {
   });
 
   describe('content', () => {
-    const until = protractor.ExpectedConditions;
-    const DATA_HOOKS = {
-      modalContentDiv: 'modal-content-div',
-      scrollableModalButton: 'scrollable-modal-button',
-      nonScrollableModalButton: 'non-scrollable-modal-button',
-      headerDiv: 'header-div',
-      contentDiv: 'content-div',
-      footerDiv: 'footer-div',
-    };
+
+    beforeEach(async () => await browser.get(
+      testStoryUrl(testStories.modalHeaderCutsOffWithLargeContent),
+    ));
 
     const scrollableModalButton = element(
-      by.css(`[data-hook="${DATA_HOOKS.scrollableModalButton}"]`),
+      by.css(`[data-hook="${testPageDataHooks.scrollableModalButton}"]`),
     );
 
     const nonScrollableModalButton = element(
-      by.css(`[data-hook="${DATA_HOOKS.nonScrollableModalButton}"]`),
+      by.css(`[data-hook="${testPageDataHooks.nonScrollableModalButton}"]`),
     );
 
     const modalContentDiv = element(
-      by.css(`[data-hook="${DATA_HOOKS.modalContentDiv}"]`),
+      by.css(`[data-hook="${testPageDataHooks.modalContentDiv}"]`),
     );
 
-    const headerDiv = element(by.css(`[data-hook="${DATA_HOOKS.headerDiv}"]`));
+    const headerDiv = element(by.css(`[data-hook="${testPageDataHooks.headerDiv}"]`));
 
     const contentDiv = element(
-      by.css(`[data-hook="${DATA_HOOKS.contentDiv}"]`),
+      by.css(`[data-hook="${testPageDataHooks.contentDiv}"]`),
     );
 
-    const footerDiv = element(by.css(`[data-hook="${DATA_HOOKS.footerDiv}"]`));
+    const footerDiv = element(by.css(`[data-hook="${testPageDataHooks.footerDiv}"]`));
 
     const getDivBoundingClientRect = dataHook =>
       `return document.querySelector("[data-hook='${dataHook}']").getBoundingClientRect();`;
 
-    const getDivYCoordinateBeforeAndAfterScroll = async dataHook => {
+    const getDivYCoordinateBeforeAndAfterScroll = async (dataHook) => {
       const beforeScroll = await browser.executeScript(
         getDivBoundingClientRect(dataHook),
       );
@@ -74,9 +69,7 @@ describe('Modal', () => {
     eyes.it(
       'should display footerDiv in viewport after it is scrolled',
       async () => {
-        await browser.get(
-          testStoryUrl(testStories.modalHeaderCutsOffWithLargeContent),
-        );
+        const until = protractor.ExpectedConditions;
 
         await waitForVisibilityOf(
           scrollableModalButton,
@@ -93,7 +86,7 @@ describe('Modal', () => {
         const {
           yBeforeScroll,
           yAfterScroll,
-        } = await getDivYCoordinateBeforeAndAfterScroll(DATA_HOOKS.footerDiv);
+        } = await getDivYCoordinateBeforeAndAfterScroll(testPageDataHooks.footerDiv);
 
         expect(yBeforeScroll === yAfterScroll).toBe(false);
       },
@@ -102,9 +95,6 @@ describe('Modal', () => {
     eyes.it(
       'should NOT display headerDiv in viewport after it is scrolled',
       async () => {
-        await browser.get(
-          testStoryUrl(testStories.modalHeaderCutsOffWithLargeContent),
-        );
 
         await waitForVisibilityOf(
           scrollableModalButton,
@@ -121,7 +111,7 @@ describe('Modal', () => {
         const {
           yBeforeScroll,
           yAfterScroll,
-        } = await getDivYCoordinateBeforeAndAfterScroll(DATA_HOOKS.headerDiv);
+        } = await getDivYCoordinateBeforeAndAfterScroll(testPageDataHooks.headerDiv);
 
         expect(yBeforeScroll === yAfterScroll).toBe(false);
       },
@@ -130,9 +120,6 @@ describe('Modal', () => {
     eyes.it(
       'should NOT scroll modalContentDiv when all its content is displayed in viewport',
       async () => {
-        await browser.get(
-          testStoryUrl(testStories.modalHeaderCutsOffWithLargeContent),
-        );
 
         await waitForVisibilityOf(
           nonScrollableModalButton,
@@ -151,21 +138,21 @@ describe('Modal', () => {
         const {
           yBeforeScrollHeader,
           yAfterScrollHeader,
-        } = await getDivYCoordinateBeforeAndAfterScroll(DATA_HOOKS.headerDiv);
+        } = await getDivYCoordinateBeforeAndAfterScroll(testPageDataHooks.headerDiv);
 
         expect(yBeforeScrollHeader === yAfterScrollHeader).toBe(true);
 
         const {
           yBeforeScrollContent,
           yAfterScrollContent,
-        } = await getDivYCoordinateBeforeAndAfterScroll(DATA_HOOKS.contentDiv);
+        } = await getDivYCoordinateBeforeAndAfterScroll(testPageDataHooks.contentDiv);
 
         expect(yBeforeScrollContent === yAfterScrollContent).toBe(true);
 
         const {
           yBeforeScrollFooter,
           yAfterScrollFooter,
-        } = await getDivYCoordinateBeforeAndAfterScroll(DATA_HOOKS.footerDiv);
+        } = await getDivYCoordinateBeforeAndAfterScroll(testPageDataHooks.footerDiv);
 
         expect(yBeforeScrollFooter === yAfterScrollFooter).toBe(true);
       },
