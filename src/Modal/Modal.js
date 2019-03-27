@@ -122,14 +122,16 @@ class Modal extends WixComponent {
     const portalClassName = classnames(styles.portal, {
       [styles.portalNonScrollable]: !scrollable,
     });
+    const childrenContainerClasses = classnames(
+      styles.childrenContainer,
+      styles.fullscreenContent,
+    );
 
     if (appElement) {
       ReactModal.setAppElement(appElement);
     } else {
       ReactModal.setAppElement('body');
     }
-
-    const childrenContainerClasses = classnames(styles.childrenContainer , styles.fullscreenContent);
 
     return (
       <div>
