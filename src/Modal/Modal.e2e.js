@@ -15,8 +15,8 @@ const eyes = eyesItInstance({ enableSnapshotAtBrowserGet: true });
 
 const { category, storyName } = storySettings;
 
-const getElementByDataHook = (dataHook) => element(by.css(`[data-hook="${dataHook}"]`));
-
+const getElementByDataHook = dataHook =>
+  element(by.css(`[data-hook="${dataHook}"]`));
 
 describe('Modal', () => {
   const testStoryUrl = testName =>
@@ -35,14 +35,15 @@ describe('Modal', () => {
   });
 
   describe('content', () => {
-    const scrollableModalButton =
-      getElementByDataHook(testPageDataHooks.scrollableModalButton);
+    const scrollableModalButton = getElementByDataHook(
+      testPageDataHooks.scrollableModalButton,
+    );
 
-    const modalContentDiv =
-      getElementByDataHook(testPageDataHooks.modalContentDiv);
+    const modalContentDiv = getElementByDataHook(
+      testPageDataHooks.modalContentDiv,
+    );
 
-    const footerDiv =
-      getElementByDataHook(testPageDataHooks.footerDiv);
+    const footerDiv = getElementByDataHook(testPageDataHooks.footerDiv);
 
     const getDivBoundingClientRect = dataHook =>
       `return document.querySelector("[data-hook='${dataHook}']").getBoundingClientRect();`;
@@ -78,7 +79,8 @@ describe('Modal', () => {
           testPageDataHooks.headerDiv,
         );
 
-        const didScrollOccur = headerPositionBeforeScroll.y > headerPositionAfterScroll.y;
+        const didScrollOccur =
+          headerPositionBeforeScroll.y > headerPositionAfterScroll.y;
 
         expect(didScrollOccur).toBe(true);
       },
