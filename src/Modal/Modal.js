@@ -129,6 +129,8 @@ class Modal extends WixComponent {
       ReactModal.setAppElement('body');
     }
 
+    const childrenContainerClasses = classnames(styles.childrenContainer , styles.fullscreenContent);
+
     return (
       <div>
         <ReactModal
@@ -146,7 +148,7 @@ class Modal extends WixComponent {
           {isOpen && shouldDisplayCloseButton && this.renderCloseButton()}
           <div
             id={CHILDREN_WRAPPER_DIV_ID}
-            className={styles.childrenContainer}
+            className={childrenContainerClasses}
             onClick={this.handleOverlayClick}
           >
             {children}
