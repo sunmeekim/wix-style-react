@@ -31,56 +31,60 @@ describe('Modal', () => {
     expect(bodyOverflow).toBe('hidden');
   });
 
-  describe('content', () => {
-    const scrollableModalButton = getElementByDataHook(
-      testPageDataHooks.scrollableModalButton,
-    );
+  describe(
+    'content',
+    () => {
+      const scrollableModalButton = getElementByDataHook(
+        testPageDataHooks.scrollableModalButton,
+      );
 
-    const modalContentDiv = getElementByDataHook(
-      testPageDataHooks.modalContentDiv,
-    );
+      const modalContentDiv = getElementByDataHook(
+        testPageDataHooks.modalContentDiv,
+      );
 
-    const footerDiv = getElementByDataHook(testPageDataHooks.footerDiv);
+      const footerDiv = getElementByDataHook(testPageDataHooks.footerDiv);
 
-    const getDivBoundingClientRect = dataHook =>
-      `return document.querySelector("[data-hook='${dataHook}']").getBoundingClientRect();`;
+      const getDivBoundingClientRect = dataHook =>
+        `return document.querySelector("[data-hook='${dataHook}']").getBoundingClientRect();`;
 
-    const getElementCoordinatesByDataHook = dataHook =>
-      browser.executeScript(getDivBoundingClientRect(dataHook));
+      const getElementCoordinatesByDataHook = dataHook =>
+        browser.executeScript(getDivBoundingClientRect(dataHook));
 
-    eyes.it(
-      'should not break design when scrolling a scrollable content',
-      async () => {
-        await browser.get(
-          testStoryUrl(testStories.modalHeaderCutsOffWithLargeContent),
-        );
+      eyes.it(
+        'should not break design when scrolling a scrollable content',
+        async () => {
+          await browser.get(
+            testStoryUrl(testStories.modalHeaderCutsOffWithLargeContent),
+          );
 
-        await waitForVisibilityOf(
-          scrollableModalButton,
-          'Cannot find scrollableModalButton',
-        );
-        await scrollableModalButton.click();
+          await waitForVisibilityOf(
+            scrollableModalButton,
+            'Cannot find scrollableModalButton',
+          );
+          await scrollableModalButton.click();
 
-        await waitForVisibilityOf(
-          modalContentDiv,
-          'Cannot find modalContentDiv',
-        );
+          await waitForVisibilityOf(
+            modalContentDiv,
+            'Cannot find modalContentDiv',
+          );
 
-        const headerPositionBeforeScroll = await getElementCoordinatesByDataHook(
-          testPageDataHooks.headerDiv,
-        );
+          const headerPositionBeforeScroll = await getElementCoordinatesByDataHook(
+            testPageDataHooks.headerDiv,
+          );
 
-        await scrollToElement(footerDiv);
+          await scrollToElement(footerDiv);
 
-        const headerPositionAfterScroll = await getElementCoordinatesByDataHook(
-          testPageDataHooks.headerDiv,
-        );
+          const headerPositionAfterScroll = await getElementCoordinatesByDataHook(
+            testPageDataHooks.headerDiv,
+          );
 
-        const didScrollOccur =
-          headerPositionBeforeScroll.y > headerPositionAfterScroll.y;
+          const didScrollOccur =
+            headerPositionBeforeScroll.y > headerPositionAfterScroll.y;
 
-        expect(didScrollOccur).toBe(true);
-      },
-    );
-  }, { enableSnapshotAtBrowserGet: true, enableSnapshotAtEnd: true }); //we want to take snapshots both at the beginning and end of this test
+          expect(didScrollOccur).toBe(true);
+        },
+      );
+    },
+    { enableSnapshotAtBrowserGet: true, enableSnapshotAtEnd: true },
+  ); //we want to take snapshots both at the beginning and end of this test
 });
