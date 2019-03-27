@@ -201,7 +201,7 @@
     "wix-ui-backoffice": "^1.0.339",
     "wix-ui-core": "^2.0.1",
     "wix-ui-icons-common": "^2.0.9",
-    "wix-ui-test-utils": "^1.0.142"
+    "wix-ui-test-utils": "^1.0.143"
   },
   "lint-staged": {
     "*.{js,scss}": "yoshi lint --fix --"

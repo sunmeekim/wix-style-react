@@ -8,19 +8,16 @@ import { createTestStoryUrl } from '../../test/utils/storybook-helpers';
 import {
   waitForVisibilityOf,
   scrollToElement,
+  getElementByDataHook,
 } from 'wix-ui-test-utils/protractor';
 
-//we want to take snapshots both at the beginning and end of the tests
-const eyes = eyesItInstance({ enableSnapshotAtBrowserGet: true });
-
 const { category, storyName } = storySettings;
-
-const getElementByDataHook = dataHook =>
-  element(by.css(`[data-hook="${dataHook}"]`));
 
 describe('Modal', () => {
   const testStoryUrl = testName =>
     createTestStoryUrl({ category, storyName, testName });
+
+  const eyes = eyesItInstance();
 
   eyes.it('should add overflow to body once it is open', async () => {
     await browser.get(testStoryUrl(testStories.modalBackgroundScroll));
@@ -85,5 +82,5 @@ describe('Modal', () => {
         expect(didScrollOccur).toBe(true);
       },
     );
-  });
+  }, { enableSnapshotAtBrowserGet: true, enableSnapshotAtEnd: true }); //we want to take snapshots both at the beginning and end of this test
 });
