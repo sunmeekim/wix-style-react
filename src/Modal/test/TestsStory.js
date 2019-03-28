@@ -55,7 +55,7 @@ class ControlledModal extends React.Component {
     });
     const openModalScrollableDiv = setState({ isOpenScrollableDivModal: true });
 
-    const contentDiv = () => (
+    const contentDiv = (
       <div
         data-hook={testPageDataHooks.contentDiv}
         style={{
@@ -145,14 +145,10 @@ class ControlledModal extends React.Component {
               onRequestClose={closeModalScrollableDiv}
               shouldDisplayCloseButton
               contentLabel="Modal With Scrollable div"
-              // scrollableContent
-              // maxHeight={'100vh'}
             >
-              <div data-hook={testPageDataHooks.modalContentDiv} style={{
-                width: '500px',
-              }}>
+              <div data-hook={testPageDataHooks.modalContentDiv} style={{width: '500px'}}>
                 {headerDiv}
-                {contentDiv()}
+                {contentDiv}
                 {footerDiv}
               </div>
             </Modal>
