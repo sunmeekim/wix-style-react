@@ -11,8 +11,8 @@ $minimum-modal-margin: 48px;
 }
 
 .fullscreen-content {
-  height: 100%;
-  width: 100%;
+  height: calc(100vh - 96px);
+  width: 100vw;
   max-width: 1254px; // Hard-coded according design: The modal cannot be wider than 1254px
   display: flex;
   flex-direction: column;

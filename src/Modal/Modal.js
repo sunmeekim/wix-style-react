@@ -106,7 +106,7 @@ class Modal extends WixComponent {
         WebkitOverflowScrolling: 'touch',
         outline: 'none',
         borderRadius,
-        padding: '0px',
+        padding: '0 48px',
         // Overriding defaults - END
         backgroundColor: 'transparent',
         marginBottom: '0px',
