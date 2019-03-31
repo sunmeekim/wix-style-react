@@ -27,7 +27,6 @@ storiesOf(kind, module).add(testStories.modalBackgroundScroll, () => (
       I Have a close button on the upper right corner but its impossible to
       press without deleting the github creature first using the console
     </MessageBoxFunctionalLayout>
-    )
   </Modal>
 ));
 

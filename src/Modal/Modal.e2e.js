@@ -13,11 +13,12 @@ import {
 
 const { category, storyName } = storySettings;
 
+//we want to take snapshots both at the beginning and end of the tests
+const eyes = eyesItInstance({ enableSnapshotAtBrowserGet: true });
+
 describe('Modal', () => {
   const testStoryUrl = testName =>
     createTestStoryUrl({ category, storyName, testName });
-
-  const eyes = eyesItInstance();
 
   eyes.it('should add overflow to body once it is open', async () => {
     await browser.get(testStoryUrl(testStories.modalBackgroundScroll));
@@ -85,6 +86,5 @@ describe('Modal', () => {
         },
       );
     },
-    { enableSnapshotAtBrowserGet: true, enableSnapshotAtEnd: true },
-  ); //we want to take snapshots both at the beginning and end of this test
+  );
 });
