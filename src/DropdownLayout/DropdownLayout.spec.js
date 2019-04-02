@@ -452,6 +452,52 @@ describe('DropdownLayout', () => {
       });
     });
 
+    describe('onOptionMarked', () => {
+      it('should call onOptionMarked when option is hovered', () => {
+        const onOptionMarked = jest.fn();
+        const driver = createDriver(
+          <DropdownLayout
+            visible
+            options={options}
+            onOptionMarked={onOptionMarked}
+          />,
+        );
+        driver.mouseEnterAtOption(1);
+        expect(onOptionMarked).toBeCalledWith(options[1]);
+      });
+
+      it('should call onOptionMarked with null when mouse leaves a hovered option', () => {
+        const onOptionMarked = jest.fn();
+        const driver = createDriver(
+          <DropdownLayout
+            visible
+            options={options}
+            onOptionMarked={onOptionMarked}
+          />,
+        );
+        driver.mouseEnterAtOption(1);
+        driver.mouseLeaveAtOption(1);
+        expect(onOptionMarked).toBeCalledWith(null);
+        expect(onOptionMarked).toHaveBeenCalledTimes(2);
+      });
+
+      it('should call onOptionMarkedfocus when down key is pressed', () => {
+        const onOptionMarked = jest.fn();
+        const driver = createDriver(
+          <DropdownLayout
+            visible
+            options={options}
+            onOptionMarked={onOptionMarked}
+          />,
+        );
+        driver.pressDownKey();
+        driver.pressDownKey();
+        expect(onOptionMarked).toHaveBeenCalledTimes(2);
+        expect(onOptionMarked.mock.calls[0]).toEqual([options[0]]);
+        expect(onOptionMarked.mock.calls[1]).toEqual([options[1]]);
+      });
+    });
+
     describe('controlled and uncontrolled logic', () => {
       describe('controlled', () => {
         it('should work as a controlled component when selectedId an onSelect are given', async () => {
