@@ -69,6 +69,20 @@ class Input extends Component {
         `Input's help prop is deprecated and will be removed in the next major release, please '<FormField infoContent="content"><Input /></FormField>'  instead`,
       );
     }
+
+    if (this._isClearFeatureEnabled && this._isControlled) {
+      deprecationLog(
+        `Controlled Input ("value" prop provided) will cease clearing Input's value when clear button is clicked, the consumer should control/reset the value in onClear instead`,
+      );
+    }
+  }
+
+  get _isClearFeatureEnabled() {
+    return !!this.props.onClear || !!this.props.clearButton;
+  }
+
+  get _isControlled() {
+    return this.props.value !== undefined;
   }
 
   extractRef = ref => {
@@ -139,8 +153,9 @@ class Input extends Component {
 
     const hasErrors = suffixStatus === Input.StatusError;
 
+    // this has a bug: !!value will work only for controlled input, instead we should add _getValue that returns the value from either this.input.value / prop.value
     const isClearButtonVisible =
-      (!!clearButton || !!onClear) && !!value && !hasErrors && !disabled;
+      this._isClearFeatureEnabled && !!value && !hasErrors && !disabled;
 
     const visibleSuffixCount = getVisibleSuffixCount({
       status: suffixStatus,
@@ -332,44 +347,51 @@ class Input extends Component {
   /**
    * Clears the input.
    *
-   * Fires onChange ONLY if the input value was not empty.
-   * Then fires onClear.
+   * Fires onClear with the given event triggered on the clear button
    *
-   * @param [Event] event and event to delegate to the onChange call. If no event is provided, a pseudo event object is created with only target.value
+   * @param [Event] event to delegate to the onClear call
    */
   clear = event => {
-    const { onClear } = this.props;
+    const { onClear, breakingChangeControlledInputOnClear } = this.props;
 
-    const prevValue = this.input.value;
-    this.input.value = '';
-
-    if (prevValue) {
-      if (!event) {
-        /* We cannot dispatch a proper new event,
-         * using this.input.dispatchEvent(new Event('change'))),
-         * because react listens only to SyntheticEvents.
-         * There is this react-trigger-changes library which is a hack for testing only (https://github.com/vitalyq/react-trigger-change).
-         * The solution of creating a new pseudo event object, works for passing along tha target.value, but e.preventDefault() and e.stopPropagation() won't work.
-         */
-        event = new Event('change', { bubbles: true });
-        Object.defineProperty(event, 'target', {
-          writable: true,
-          value: this.input,
-        });
-      }
-      /* FIXME: The event (e) could be any event type, and even it's target may not be the input.
-       * So it would be better to do e.target = this.input.
-       * We don't use `clear` in WSR except in InputWithTags which does not pass an event, so it's ok.
-       * But if some consumer is using <Input/> directly, then this might be a breaking change.
+    if (breakingChangeControlledInputOnClear && !this._isControlled) {
+      this.input.value = '';
+    } else if (!breakingChangeControlledInputOnClear) {
+      /* an older implementation that has a hack, it's currently enabled by default for backward compatibility
+       * see https://github.com/wix/wix-style-react/issues/3122
        */
-      Object.defineProperty(event, 'target', {
-        writable: false,
-        value: { ...event.target, value: '' },
-      });
-      this._onChange(event);
+      const prevValue = this.input.value;
+      this.input.value = '';
+      prevValue && this._triggerOnChangeHandlerOnClearEvent(event);
     }
 
-    onClear && onClear();
+    onClear && onClear(event);
+  };
+
+  _triggerOnChangeHandlerOnClearEvent = event => {
+    if (!event) {
+      /* We cannot dispatch a proper new event,
+       * using this.input.dispatchEvent(new Event('change'))),
+       * because react listens only to SyntheticEvents.
+       * There is this react-trigger-changes library which is a hack for testing only (https://github.com/vitalyq/react-trigger-change).
+       * The solution of creating a new pseudo event object, works for passing along tha target.value, but e.preventDefault() and e.stopPropagation() won't work.
+       */
+      event = new Event('change', { bubbles: true });
+      Object.defineProperty(event, 'target', {
+        writable: true,
+        value: this.input,
+      });
+    }
+    /* FIXME: The event (e) could be any event type, and even it's target may not be the input.
+     * So it would be better to do e.target = this.input.
+     * We don't use `clear` in WSR except in InputWithTags which does not pass an event, so it's ok.
+     * But if some consumer is using <Input/> directly, then this might be a breaking change.
+     */
+    Object.defineProperty(event, 'target', {
+      writable: false,
+      value: { ...event.target, value: '' },
+    });
+    this._onChange(event);
   };
 
   _renderInput = props => {
@@ -401,6 +423,7 @@ Input.defaultProps = {
   maxLength: 524288,
   withSelection: false,
   clearButton: false,
+  breakingChangeControlledInputOnClear: false,
 };
 
 const borderRadiusValidator = (props, propName) => {
@@ -583,6 +606,11 @@ Input.propTypes = {
 
   /** Use a customized input component instead of the default html input tag */
   customInput: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
+
+  /** Don't call onChange on a controlled Input when user clicks the clear button.
+   *  See https://github.com/wix/wix-style-react/issues/3122
+   */
+  breakingChangeControlledInputOnClear: PropTypes.bool,
 };
 
 export default Input;

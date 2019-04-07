@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import isEmpty from 'lodash/isEmpty';
 
 import InputWithOptions from '../InputWithOptions';
 import SearchIcon from 'wix-ui-icons-common/Search';
@@ -71,16 +72,24 @@ export default class Search extends WixComponent {
     }
   };
 
-  _onClear = () => {
-    const { onClear } = this.props;
+  _onClear = event => {
+    const { onClear, expandable } = this.props;
+    const { collapsed } = this.state;
 
-    if (!this.state.collapsed && this.props.expandable) {
-      this.setState({
-        collapsed: true,
-      });
+    const stateChanges = {};
+
+    if (this._isControlled) {
+      stateChanges.inputValue = '';
     }
 
-    onClear && onClear();
+    if (expandable && !collapsed) {
+      stateChanges.collapsed = true;
+    }
+
+    if (!isEmpty(stateChanges)) {
+      // call onClear only *after* updating the search value
+      this.setState(stateChanges, () => onClear && onClear(event));
+    }
   };
 
   _currentValue = () => {

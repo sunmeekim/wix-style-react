@@ -19,20 +19,32 @@ describe('InputWithTags', () => {
     cleanup();
   });
 
-  it('should clear input value state when clear is called', () => {
-    const onChange = jest.fn();
-    let component;
-    const { driver } = render(
-      <InputWithTags onChange={onChange} ref={comp => (component = comp)} />,
-    );
-    driver.inputDriver().enterText('foo');
+  describe('clear button click', () => {
+    it('should clear input value when clicked', () => {
+      let component;
+      const { driver } = render(
+        <InputWithTags ref={comp => (component = comp)} />,
+      );
 
-    expect(onChange).toHaveBeenCalledTimes(1);
-    expect(onChange.mock.calls[0][0].target.value).toBe('foo');
+      driver.inputDriver().enterText('foo');
+      expect(driver.inputDriver().getValue()).toEqual('foo');
 
-    component.clear();
+      component.clear();
+      expect(driver.inputDriver().getValue()).toEqual('');
+    });
 
-    expect(onChange).toHaveBeenCalledTimes(2);
-    expect(onChange.mock.calls[1][0].target.value).toBe('');
+    it('should call onClear', () => {
+      const onClear = jest.fn();
+      let component;
+      const { driver } = render(
+        <InputWithTags onClear={onClear} ref={comp => (component = comp)} />,
+      );
+
+      driver.inputDriver().enterText('foo');
+      expect(onClear).toHaveBeenCalledTimes(0);
+
+      component.clear();
+      expect(onClear).toHaveBeenCalledTimes(1);
+    });
   });
 });

@@ -194,7 +194,8 @@ export default class ModalSelectorLayout extends WixComponent {
                   dataHook={dataHooks.search}
                   placeholder={searchPlaceholder}
                   value={searchValue}
-                  onChange={e => this._onSearchChange(e)}
+                  onChange={this._onSearchChange}
+                  onClear={this._onClear}
                 />
               </div>
             )}
@@ -293,13 +294,16 @@ export default class ModalSelectorLayout extends WixComponent {
     }
   }
 
-  _onSearchChange(e) {
+  _updateSearchValue = searchValue =>
     this.setState({
-      searchValue: e.target.value,
+      searchValue,
       isSearching: true,
       items: [],
     });
-  }
+
+  _onSearchChange = e => this._updateSearchValue(e.target.value);
+
+  _onClear = () => this._updateSearchValue('');
 
   _loadMore() {
     const { dataSource, itemsPerPage } = this.props;
@@ -313,7 +317,6 @@ export default class ModalSelectorLayout extends WixComponent {
           const selectedItems = this.state.selectedItems.concat(
             itemsFromNextPage.filter(({ selected }) => selected),
           );
-
           const shouldShowNoResultsFoundState =
             newItems.length === 0 && searchValue;
           const isEmpty = newItems.length === 0 && !searchValue;
