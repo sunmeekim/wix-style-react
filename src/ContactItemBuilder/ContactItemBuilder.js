@@ -46,10 +46,18 @@ ContactItem.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string,
   imageUrl: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
-export const contactItemBuilder = ({ id, title, subtitle, imageUrl }) => ({
+export const contactItemBuilder = ({
   id,
+  title,
+  subtitle,
+  imageUrl,
+  disabled,
+}) => ({
+  id,
+  disabled,
   value: ({ selected }) => (
     <ContactItem
       title={title}

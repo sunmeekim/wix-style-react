@@ -26,5 +26,17 @@ describe('item picker option builder', () => {
     expect(driver.getSubtitle()).toEqual(subtitle);
   });
 
+  it('should return item with disabled prop', () => {
+    const component = (
+      <ContactItem title={title} subtitle={subtitle} disabled />
+    );
+    expect(component.props.disabled).toBeTruthy();
+  });
+
+  it('should return item without disabled prop when prop is not passed', () => {
+    const contactItem = <ContactItem title={title} subtitle={subtitle} />;
+    expect(contactItem.props.disabled).toBeFalsy();
+  });
+
   // TODO: test avatar
 });

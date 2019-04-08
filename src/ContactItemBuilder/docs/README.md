@@ -14,5 +14,6 @@ import { ContactItemBuilder } from contactItemBuilder;
 | `title` | `string` | `true` | the option title. |
 | `subtitle`| `string` | `false` | the option subtitle |
 | `imageUrl` | `string` | `false` | an image url, when given, avatar will display it. if not given, the avatar will display title initials |
+| `disabled` | `boolean` | `false` | disable the option when set to true |
 
 ## Examples
