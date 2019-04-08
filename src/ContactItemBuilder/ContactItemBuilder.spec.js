@@ -1,5 +1,5 @@
 import React from 'react';
-import { ContactItem } from './ContactItemBuilder';
+import { ContactItem, contactItemBuilder } from './ContactItemBuilder';
 import { createDriverFactory } from 'wix-ui-test-utils/driver-factory';
 import contactItemBuilderDriverFactory from './ContactItemBuilder.driver';
 
@@ -27,15 +27,13 @@ describe('item picker option builder', () => {
   });
 
   it('should return item with disabled prop', () => {
-    const component = (
-      <ContactItem title={title} subtitle={subtitle} disabled />
-    );
-    expect(component.props.disabled).toBeTruthy();
+    const contactItem = contactItemBuilder({title, subtitle, disabled: true});
+    expect(contactItem.disabled).toBeTruthy();
   });
 
   it('should return item without disabled prop when prop is not passed', () => {
-    const contactItem = <ContactItem title={title} subtitle={subtitle} />;
-    expect(contactItem.props.disabled).toBeFalsy();
+    const contactItem = contactItemBuilder({title, subtitle});
+    expect(contactItem.disabled).toBeFalsy();
   });
 
   // TODO: test avatar

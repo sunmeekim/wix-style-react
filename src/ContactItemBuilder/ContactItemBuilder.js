@@ -46,7 +46,6 @@ ContactItem.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string,
   imageUrl: PropTypes.string,
-  disabled: PropTypes.bool,
 };
 
 export const contactItemBuilder = ({
