@@ -578,19 +578,32 @@ describe('Input', () => {
 
     describe('clearButton attribute', () => {
       it('should be displayed when input text is not empty', async () => {
-        // controlled
         const { driver } = render(<Input value="some value" clearButton />);
         expect(await driver.hasClearButton()).toBe(true);
       });
 
       it('should not be displayed when input text is empty', async () => {
-        // controlled
         const { driver } = render(<Input value="" clearButton />);
         expect(await driver.hasClearButton()).toBe(false);
       });
 
+      it('should focus on the Input', async () => {
+        const { driver } = render(<Input clearButton value="some value" />);
+        await driver.clickClear();
+        expect(await driver.isFocus()).toBe(true);
+      });
+
+      it('should trigger onChange on clearing as if input just emptied', async () => {
+        const onChange = jest.fn();
+        const { driver } = render(
+          <Input onChange={onChange} value="some value" clearButton />,
+        );
+        await driver.clickClear();
+        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onChange.mock.calls[0][0].target.value).toBe('');
+      });
+
       it('should trigger onClear when clicking the clear button', async () => {
-        // controlled
         const onClear = jest.fn();
         const { driver } = render(
           <Input onClear={onClear} value="some value" />,
@@ -598,6 +611,53 @@ describe('Input', () => {
         await driver.clickClear();
         expect(onClear).toHaveBeenCalledTimes(1);
         expect(onClear.mock.calls[0][0].target.value).toBe('');
+      });
+
+      describe('clear method', () => {
+        it('should call onChange with empty value after calling clear', async () => {
+          const spy = jest.fn();
+          const wrapper = mount(<Input value="foo" onChange={spy} />);
+          wrapper.instance().clear();
+          expect(spy.mock.calls[0][0].target.value).toBe('');
+        });
+
+        it('should NOT call onChange if the input was already empty', async () => {
+          const spy = jest.fn();
+          const wrapper = mount(<Input value="" onChange={spy} />);
+          wrapper.instance().clear();
+          expect(spy.mock.calls.length).toBe(0);
+        });
+      });
+
+      describe('updateControlledOnClear is true', () => {
+        it('should NOT trigger onChange on clearing', async () => {
+          const onChange = jest.fn();
+          const { driver } = render(
+            <Input
+              onChange={onChange}
+              value="some value"
+              clearButton
+              updateControlledOnClear
+            />,
+          );
+          await driver.clickClear();
+          expect(onChange).toHaveBeenCalledTimes(0);
+        });
+
+        it('should trigger onClear on clearing', async () => {
+          const onClear = jest.fn();
+          const { driver } = render(
+            <Input
+              onClear={onClear}
+              value="some value"
+              clearButton
+              updateControlledOnClear
+            />,
+          );
+          await driver.clickClear();
+          expect(onClear).toHaveBeenCalledTimes(1);
+          expect(onClear.mock.calls[0][0]).toBeTruthy;
+        });
       });
 
       describe.skip('Uncontrolled', () => {

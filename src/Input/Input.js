@@ -72,7 +72,7 @@ class Input extends Component {
 
     if (this._isClearFeatureEnabled && this._isControlled) {
       deprecationLog(
-        `Controlled Input ("value" prop provided) will cease clearing Input's value when clear button is clicked, the consumer should control/reset the value in onClear instead`,
+        `<Input/> - Clearing the value in a controlled component through onChange() will be deprectead in next major version. Pass updateControlledOnClear prop and use the onClear() callback to apply the new behavior`,
       );
     }
   }
@@ -153,7 +153,7 @@ class Input extends Component {
 
     const hasErrors = suffixStatus === Input.StatusError;
 
-    // this has a bug: !!value will work only for controlled input, instead we should add _getValue that returns the value from either this.input.value / prop.value
+    // this doesn't work for uncontrolled, "value" refers only to controlled input
     const isClearButtonVisible =
       this._isClearFeatureEnabled && !!value && !hasErrors && !disabled;
 
@@ -352,11 +352,13 @@ class Input extends Component {
    * @param [Event] event to delegate to the onClear call
    */
   clear = event => {
-    const { onClear, breakingChangeControlledInputOnClear } = this.props;
+    const { onClear, updateControlledOnClear } = this.props;
 
-    if (breakingChangeControlledInputOnClear && !this._isControlled) {
-      this.input.value = '';
-    } else if (!breakingChangeControlledInputOnClear) {
+    if (updateControlledOnClear) {
+      if (!this._isControlled) {
+        this.input.value = '';
+      }
+    } else {
       /* an older implementation that has a hack, it's currently enabled by default for backward compatibility
        * see https://github.com/wix/wix-style-react/issues/3122
        */
@@ -423,7 +425,7 @@ Input.defaultProps = {
   maxLength: 524288,
   withSelection: false,
   clearButton: false,
-  breakingChangeControlledInputOnClear: false,
+  updateControlledOnClear: false,
 };
 
 const borderRadiusValidator = (props, propName) => {
@@ -610,7 +612,7 @@ Input.propTypes = {
   /** Don't call onChange on a controlled Input when user clicks the clear button.
    *  See https://github.com/wix/wix-style-react/issues/3122
    */
-  breakingChangeControlledInputOnClear: PropTypes.bool,
+  updateControlledOnClear: PropTypes.bool,
 };
 
 export default Input;

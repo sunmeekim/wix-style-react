@@ -46,5 +46,21 @@ describe('InputWithTags', () => {
       component.clear();
       expect(onClear).toHaveBeenCalledTimes(1);
     });
+
+    it('should call onChange', () => {
+      const onChange = jest.fn();
+      let component;
+      render(
+        <InputWithTags
+          onChange={onChange}
+          defaultValue="foo"
+          ref={comp => (component = comp)}
+        />,
+      );
+
+      component.clear();
+
+      expect(onChange).toHaveBeenCalledTimes(1);
+    });
   });
 });
