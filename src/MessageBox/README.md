@@ -28,7 +28,7 @@
 | cancelText | string | - | - | Cancel button Label |
 | cancelPrefixIcon | element | - | - | Element based icon (svg, image etc.) |
 | cancelSuffixIcon | element | - | - | Element based icon (svg, image etc.) |
-| theme | string | - | - | theme of the message box, (green, blue, red) |
+| theme | string | - | - | theme of the message box (green, blue, red, purple) |
 | onOk | func | - | - | Ok callback |
 | onCancel | func | - | - | Cancel callback |
 | onClose | func | onCancel | - | Close button callback, the default is onCancel callback |

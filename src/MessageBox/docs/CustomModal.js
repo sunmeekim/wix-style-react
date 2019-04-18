@@ -9,6 +9,9 @@ import ReadmeTestKit from '../README.TESTKIT.md';
 import FullScreenModal from './CustomModalExamples/FullScreenModal';
 import FullScreenModalRaw from '!raw-loader!./CustomModalExamples/FullScreenModal';
 
+import PurpleModal from './CustomModalExamples/PurpleModal';
+import PurpleModalRaw from '!raw-loader!./CustomModalExamples/PurpleModal';
+
 const introduction = `# Custom modal (\`<MessageBoxFunctionalLayout/>\`)`;
 
 const layoutStyles = {
@@ -24,6 +27,11 @@ export default () => (
           title="fullscreen"
           code={FullScreenModalRaw}
           children={<FullScreenModal />}
+        />
+        <CodeExample
+          title="purple theme"
+          code={PurpleModalRaw}
+          children={<PurpleModal />}
         />
       </div>
     </div>

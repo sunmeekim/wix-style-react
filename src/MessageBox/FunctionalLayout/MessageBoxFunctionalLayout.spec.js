@@ -186,6 +186,7 @@ describe('MessageBox', () => {
       const driver = createDriver(<MessageBoxFunctionalLayout {...props} />);
       expect(driver.isThemeExist('green')).toBeTruthy();
       expect(driver.isThemeExist('blue')).toBeFalsy();
+      expect(driver.isThemeExist('purple')).toBeFalsy();
     });
   });
 

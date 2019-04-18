@@ -17,7 +17,7 @@
 | clickOnCancellationButton | - | - | clicks on the cancellation button |
 | clickOnConfirmationButton | - | - | clicks on the confirmation button |
 | clickOnHeaderCloseButton | - | - | clicks on the close button |
-| isThemeExist | (green, blue , red) | bool | fulfilled if theme applied |
+| isThemeExist | (green, blue , red, purple) | bool | fulfilled if theme applied |
 | getFooter | - | element | returns the footer element |
 | getTitle | - | string | returns the  title of the Message Box |
 | getChildBySelector | selector | child element | return the element inside the Message box content |
@@ -28,26 +28,26 @@
   import React from 'react';
   import {messageBoxFunctionalLayoutTestkitFactory} from 'wix-style-react/dist/testkit';
   import {messageBoxFunctionalLayoutTestkitFactory as enzymeMessageBoxFunctionalLayoutTestkitFactory} from 'wix-style-react/dist/testkit/enzyme';
-  
+
   /**************
    enzyme exmaple
   ***************/
-  
+
   const component = mount(<div/><MessageBoxFunctionalLayout dataHook='messageBox'/></div>);
   enzymeMessageBoxFunctionalLayoutTestKit = enzymeMessageBoxFunctionalLayoutTestkitFactory({wrapper: component, dataHook: 'messageBox'})
-  
+
   expect(enzymeMessageBoxFunctionalLayoutTestKit.getConfirmationButtonText()).toBe('OK');
 
   /***********************
    ReactTestUtils exmaple
   ***********************/
-  
+
   const div = document.createElement('div');
   const dataHook = 'messageBox';
   const elementToRender = React.cloneElement(Element, {dataHook});
   const wrapper = div.appendChild(ReactTestUtils.renderIntoDocument(<div>{elementToRender}</div>));
   const testkit = messageBoxFunctionalLayoutTestkitFactory({wrapper, dataHook});
-  
+
   expect(messageBoxFunctionalLayoutTestKit.getConfirmationButtonText()).toBe('OK');
 ```
 
@@ -75,25 +75,25 @@
   import React from 'react';
   import {messageBoxMarketerialLayoutTestkitFactory} from 'wix-style-react/dist/testkit';
   import {messageBoxMarketerialLayoutTestkitFactory as enzymeMessageBoxMarketerialLayoutTestkitFactory} from 'wix-style-react/dist/testkit/enzyme';
-  
+
   /**************
    enzyme exmaple
   ***************/
-  
+
   const component = mount(<div/><MessageBoxMarketerialLayout dataHook='messageBox'/></div>);
   enzymeMessageBoxMarketerialLayoutTestKit = enzymeMessageBoxMarketerialLayoutTestkitFactory({wrapper: this.component, dataHook: 'messageBox'})
-  
+
   expect(enzymeMessageBoxMarketerialLayoutTestKit.getPrimaryButtonText()).toBe('OK');
-  
+
   /***********************
    ReactTestUtils exmaple
   ***********************/
-  
+
   const div = document.createElement('div');
   const dataHook = 'messageBox';
   const elementToRender = React.cloneElement(Element, {dataHook});
   const wrapper = div.appendChild(ReactTestUtils.renderIntoDocument(<div>{elementToRender}</div>));
   const testkit = messageBoxMarketerialLayoutTestkitFactory({wrapper, dataHook});
-  
+
   expect(messageBoxMarketerialLayoutTestKit.getPrimaryButtonText()).toBe('OK');
 ```
