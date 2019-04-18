@@ -17,21 +17,18 @@ class PurpleModal extends Component {
     const openPurpleModal = setState({ isOpenPurpleModal: true });
     return (
       <div>
-        <Button
-          dataHook="open-full-screen-modal-button"
-          onClick={openPurpleModal}
-        >
+        <Button dataHook="open-purple-modal-button" onClick={openPurpleModal}>
           Open Purple Screen Modal
         </Button>
         <Modal
           isOpen={this.state.isOpenPurpleModal}
           onRequestClose={closePurpleModal}
-          contentLabel="Full screen modal example"
+          contentLabel="Purple modal example"
         >
           <MessageBoxFunctionalLayout
             cancelText="Cancel"
             confirmText="OK"
-            dataHook="fullscreen-modal"
+            dataHook="purple-modal"
             onCancel={closePurpleModal}
             onOk={closePurpleModal}
             theme="purple"
