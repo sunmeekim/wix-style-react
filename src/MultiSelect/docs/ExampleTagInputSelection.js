@@ -91,6 +91,7 @@ class CountryInput extends React.Component {
   render() {
     return (
       <MultiSelect
+        autoSizeInput
         dataHook="multi-select-tag-input-selection"
         value={this.state.inputValue}
         onChange={this.handleOnChange}

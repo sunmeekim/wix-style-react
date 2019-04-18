@@ -60,6 +60,7 @@ class MultiSelect extends InputWithOptions {
           onReorder={this.props.onReorder}
           maxNumRows={this.props.maxNumRows}
           mode={this.props.mode}
+          customInput={this.props.autoSizeInput ? this.autoSizeInput : null}
         />
       ),
       onKeyDown: this.onKeyDown,
@@ -179,7 +180,7 @@ class MultiSelect extends InputWithOptions {
     }
   }
 
-  static autoSizeInput = ({ className, 'data-ref': dataRef, ...rest }) => {
+  autoSizeInput = ({ className, 'data-ref': dataRef, ...rest }) => {
     const inputClassName = classNames(className, styles.autoSizeInput);
     return (
       <AutosizeInput
@@ -220,7 +221,7 @@ MultiSelect.propTypes = {
    * `onSelect(option: Option): void` - Option is the original option from the provided `options` prop.
    */
   onSelect: PropTypes.func,
-  customInput: PropTypes.func,
+  autoSizeInput: PropTypes.bool,
 };
 
 MultiSelect.defaultProps = {
@@ -230,7 +231,6 @@ MultiSelect.defaultProps = {
   predicate: () => true,
   tags: [],
   delimiters: [','],
-  customInput: MultiSelect.autoSizeInput,
 };
 
 export default MultiSelect;

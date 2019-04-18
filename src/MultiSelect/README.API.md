@@ -12,6 +12,7 @@
 | onTagsAdded | func | - | - | A callback which is called when the user performs a Submit-Action. Submit-Action triggers are: "Enter", "Tab", [typing any defined delimiters], Paste action. The expected callback signature is `onTagsAdded(values: Array<string>) => void` - The array of strings is the result of splitting the input value by the given delimiters |
 | predicate | func | () => true | - | Callback predicate for the filtering options function |
 | tags | array of objects | - | + | The tags. tags are just set of selected suggestions|
+| autoSizeInput | bool | false | - | When set to true input size is auto calculated by it's value length|
 | ***All of the InputWithOptions Props are also available for this component* (Excluding: selectedId, closeOnSelect, selectedHighlight)** | | | | |
 
 ## Option Object

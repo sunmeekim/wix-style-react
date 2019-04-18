@@ -79,6 +79,7 @@ class CountrySelection extends React.Component {
   render() {
     return (
       <MultiSelect
+        autoSizeInput
         dataHook="multi-select-only"
         value={this.state.inputValue}
         onChange={this.handleOnChange}

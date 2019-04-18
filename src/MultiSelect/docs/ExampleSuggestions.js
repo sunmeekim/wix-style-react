@@ -84,6 +84,7 @@ class ContactsInput extends React.Component {
     return (
       <MultiSelect
         // If I remove this comment - the ReactLive get stuck
+        autoSizeInput
         dataHook="multi-select-standard"
         value={this.state.inputValue}
         onChange={this.handleOnChange}

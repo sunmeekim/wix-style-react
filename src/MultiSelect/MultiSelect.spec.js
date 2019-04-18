@@ -98,8 +98,15 @@ describe('MultiSelect', () => {
   });
 
   it('should render custom input as the input element', () => {
-    const { inputDriver } = createDriver(<MultiSelect options={options} />);
+    const { inputDriver } = createDriver(
+      <MultiSelect autoSizeInput options={options} />,
+    );
     expect(inputDriver.isCustomInput()).toEqual(true);
+  });
+
+  it('should not render custom input as the input element', () => {
+    const { inputDriver } = createDriver(<MultiSelect options={options} />);
+    expect(inputDriver.isCustomInput()).toEqual(false);
   });
 
   describe('click-outside', () => {

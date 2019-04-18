@@ -6,6 +6,7 @@ import React from 'react';
 export default () => (
   <div style={{ width: '400px' }}>
     <MultiSelect
+      autoSizeInput
       dataHook={storySettings.dataHook}
       tags={[
         { id: '1', label: 'a' },

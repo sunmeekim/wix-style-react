@@ -41,6 +41,7 @@ class ExampleTagInput extends React.Component {
   render() {
     return (
       <MultiSelect
+        autoSizeInput
         dataHook="multi-select-tags-input"
         value={this.state.inputValue}
         onChange={this.handleOnChange}

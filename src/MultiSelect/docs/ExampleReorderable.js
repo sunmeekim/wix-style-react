@@ -45,6 +45,7 @@ class ExampleReorderable extends React.Component {
     const { tags } = this.state;
     return (
       <MultiSelect
+        autoSizeInput
         mode="select"
         dataHook="multi-select-reorderable"
         tags={this.state.tags}

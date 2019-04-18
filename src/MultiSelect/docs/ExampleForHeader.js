@@ -52,6 +52,7 @@ class CountrySelection extends React.Component {
   render() {
     return (
       <MultiSelect
+        autoSizeInput
         mode="select"
         tags={this.state.tags}
         onSelect={this.handleOnSelect}
