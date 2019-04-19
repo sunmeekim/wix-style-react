@@ -6,10 +6,12 @@ import CodeExample from 'wix-storybook-utils/CodeExample';
 import Readme from '../README.md';
 import ReadmeTestKit from '../README.TESTKIT.md';
 
-import FullScreenModal from './CustomModalExamples/FullScreenModal';
-import FullScreenModalRaw from '!raw-loader!./CustomModalExamples/FullScreenModal';
+import StandardMessageBoxFunctionalLayout from './PremiumExample/Standard';
+import StandardMessageBoxFunctionalLayoutRaw from '!raw-loader!./PremiumExample/Standard';
 
-const introduction = `# Custom modal (\`<MessageBoxFunctionalLayout/>\`)`;
+const introduction = `# Premium Modal (\`<MessageBoxFunctionalLayout/>\`)
+Components to be used within \`wix-style-react/Modal\`:
+`;
 
 const layoutStyles = {
   margin: '0 30px',
@@ -21,9 +23,9 @@ export default () => (
       <Markdown source={introduction} />
       <div style={layoutStyles}>
         <CodeExample
-          title="fullscreen"
-          code={FullScreenModalRaw}
-          children={<FullScreenModal />}
+          title="Premium"
+          code={StandardMessageBoxFunctionalLayoutRaw}
+          children={<StandardMessageBoxFunctionalLayout />}
         />
       </div>
     </div>

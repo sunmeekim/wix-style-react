@@ -28,6 +28,10 @@ const announcementStories = {
   // Celebratory: require('../docs/AnnouncementExamples/Celebratory').default,
 };
 
+const premiumStories = {
+  Standard: require('../docs/PremiumExample/Standard').default,
+};
+
 Object.entries(alertStories).forEach(([name, story]) =>
   storiesOf(`MessageBox/Alert`, module).add(name, () =>
     React.createElement(story),
@@ -54,4 +58,10 @@ Object.entries(announcementStories).forEach(([name, story]) =>
   storiesOf(`MessageBox/AnnouncementRTL`, module).add(name, () => (
     <div dir="rtl">{React.createElement(story)}</div>
   )),
+);
+
+Object.entries(premiumStories).forEach(([name, story]) =>
+  storiesOf(`MessageBox/Premium`, module).add(name, () =>
+    React.createElement(story),
+  ),
 );

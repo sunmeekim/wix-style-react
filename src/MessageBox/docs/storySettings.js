@@ -16,4 +16,8 @@ export const storySettings = {
     kind,
     story: '9.4 Announcement',
   },
+  premium: {
+    kind,
+    story: '9.5 Premium Modal',
+  },
 };
