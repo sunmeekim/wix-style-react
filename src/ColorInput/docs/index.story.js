@@ -29,7 +29,7 @@ const example = ({ title, text, source }) =>
   });
 
 export default {
-  category: storySettings.kind,
+  category: storySettings.category,
   storyName: storySettings.storyName,
 
   component: ColorInput,
