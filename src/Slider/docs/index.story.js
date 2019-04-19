@@ -18,6 +18,8 @@ import * as examples from './examples';
 
 import Slider from '..';
 
+import { storySettings } from './storySettings';
+
 const liveCode = config =>
   baseLiveCode({
     compact: true,
@@ -49,8 +51,8 @@ class SlideWithState extends React.Component {
   }
 }
 export default {
-  category: '4. Selection',
-  storyName: '4.7 Slider',
+  category: storySettings.category,
+  storyName: storySettings.storyName,
 
   component: Slider,
 

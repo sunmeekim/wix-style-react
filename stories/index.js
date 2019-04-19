@@ -22,13 +22,13 @@ require('./TextInput/index.story'); // 3.1. Text Input
 require('./TextArea/index.story'); // 3.2 Text Area
 require('../src/RichTextArea/docs/index.story'); // 3.2b + RichTextArea
 require('./NumberInput/index.story'); // 3.4 NumberInput
-require('./MultiSelect/index.story'); // 3.8 Tags
+require('../src/ColorInput/docs/index.story'); // 3.11 ColorInput
+require('./MultiSelect/index.story'); // 3.12 Tags
 
 // 4. Selection
 require('./Dropdown/DropdownStory'); // 4.1 Dropdown
 require('../src/SegmentedToggle/docs/index.story'); // 4.5 SegmentedToggle
-require('../src/Slider/docs/index.story'); // 4.7 Slider
-require('../src/ColorInput/docs/index.story'); // 4.8 ColorInput
+require('../src/Slider/docs/index.story'); // 4.8 Slider
 
 // 5. Buttons
 require('../src/Button/docs/index.story'); // 5.1 Standard

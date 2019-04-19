@@ -5,7 +5,11 @@ import { createTestStoryUrl } from '../../test/utils/storybook-helpers';
 
 const eyes = eyesItInstance();
 const testStoryUrl = testName =>
-  createTestStoryUrl({ ...storySettings, testName });
+  createTestStoryUrl({
+    kind: storySettings.category,
+    ...storySettings,
+    testName,
+  });
 
 describe('ColorInput', () => {
   describe('test stories', () => {
