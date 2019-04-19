@@ -9,7 +9,7 @@ import TextButton from '..';
 import { Layout, Cell } from '../../Layout';
 import AddChannel from '../../new-icons/AddChannel';
 
-const kind = getTestStoryKind(storySettings);
+const category = getTestStoryKind(storySettings);
 const dataHook = 'story-button-test';
 
 const TestContainer = ({ children }) => (
@@ -59,7 +59,7 @@ const ButtonBlock = values => {
   );
 };
 
-storiesOf(kind, module).add(testStories.TEXTBUTTON_SKINS, () => (
+storiesOf(category, module).add(testStories.TEXTBUTTON_SKINS, () => (
   <TestContainer>
     <div style={{ marginLeft: '10px' }}>
       <Layout>
@@ -74,7 +74,7 @@ storiesOf(kind, module).add(testStories.TEXTBUTTON_SKINS, () => (
   </TestContainer>
 ));
 
-storiesOf(kind, module).add(testStories.TEXTBUTTON_AFFIXES, () => (
+storiesOf(category, module).add(testStories.TEXTBUTTON_AFFIXES, () => (
   <TestContainer>
     <div style={{ marginLeft: '10px' }}>
       <Layout>
@@ -95,7 +95,7 @@ storiesOf(kind, module).add(testStories.TEXTBUTTON_AFFIXES, () => (
   </TestContainer>
 ));
 
-storiesOf(kind, module).add(testStories.TEXTBUTTON_AS, () => (
+storiesOf(category, module).add(testStories.TEXTBUTTON_AS, () => (
   <TestContainer>
     <div style={{ marginLeft: '10px' }}>
       <Layout>

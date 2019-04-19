@@ -8,9 +8,9 @@ import { createStoryUrl } from '../../test/utils/storybook-helpers';
 import { cardGalleryItemTestkitFactory } from '../../testkit/protractor';
 import { storySettings } from './docs/storySettings';
 
-const { kind, storyName } = storySettings;
+const { category, storyName } = storySettings;
 const autoExampleUrl = createStoryUrl({
-  kind,
+  kind: category,
   story: storyName,
   withExamples: false,
 });

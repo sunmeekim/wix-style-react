@@ -20,7 +20,7 @@ import ToggleIcon from '../ToggleIcon/ToggleIcon';
 import * as examples from './examples';
 
 export default {
-  category: storySettings.kind,
+  category: storySettings.category,
   storyName: storySettings.storyName,
 
   component: SegmentedToggle,

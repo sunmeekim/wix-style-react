@@ -12,12 +12,12 @@ import { storySettings } from './docs/storySettings';
 
 describe('Text', () => {
   const storyUrl = createStoryUrl({
-    kind: storySettings.kind,
+    kind: storySettings.category,
     story: storySettings.storyName,
     withExamples: false,
   });
   const storyUrlWithExamples = createStoryUrl({
-    kind: storySettings.kind,
+    kind: storySettings.category,
     story: storySettings.storyName,
     withExamples: true,
   });

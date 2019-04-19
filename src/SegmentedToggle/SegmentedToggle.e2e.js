@@ -15,7 +15,7 @@ const testStoryUrl = testName =>
 
 describe('SegmentedToggle', () => {
   const storyUrl = createStoryUrl({
-    kind: storySettings.kind,
+    kind: storySettings.category,
     story: storySettings.storyName,
   });
 

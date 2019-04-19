@@ -21,7 +21,7 @@ import LinkExampleRaw from '!raw-loader!./ExampleLink';
 import { storySettings } from './storySettings';
 
 export default {
-  category: storySettings.kind,
+  category: storySettings.category,
   storyName: storySettings.storyName,
   component: Text,
   componentPath: '../Text.js',

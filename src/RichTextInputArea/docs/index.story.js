@@ -6,7 +6,7 @@ import RichTextInputArea from '..';
 import ExampleRichTextInputArea from '!raw-loader!./examples/ExampleRichTextInputArea';
 
 export default {
-  category: storySettings.kind,
+  category: storySettings.category,
   storyName: storySettings.storyName,
 
   component: RichTextInputArea,

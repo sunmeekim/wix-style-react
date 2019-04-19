@@ -1,5 +1,5 @@
 export const storySettings = {
-  kind: 'Components',
+  category: 'Components',
   storyName: 'GoogleAddressInput',
   dataHook: 'storybook-google-address-input',
 };

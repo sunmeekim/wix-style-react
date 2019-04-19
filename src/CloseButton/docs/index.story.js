@@ -36,7 +36,7 @@ const example = ({ source, ...rest }) =>
   columns([description({ ...rest }), liveCode({ source })]);
 
 export default {
-  category: storySettings.kind,
+  category: storySettings.category,
   storyName: storySettings.storyName,
   component: CloseButton,
   componentPath: '..',

@@ -1,7 +1,6 @@
 import { Category } from '../../../stories/storiesHierarchy';
 
 export const storySettings = {
-  kind: Category.BUTTONS,
   category: Category.BUTTONS,
   storyName: '5.4 CloseButton',
 };

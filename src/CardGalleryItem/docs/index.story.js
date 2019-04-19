@@ -8,7 +8,7 @@ import ExampleBasicRaw from '!raw-loader!./ExampleBasic';
 import CardGalleryItem from '..';
 import { storySettings } from './storySettings';
 
-const { kind, storyName, dataHook } = storySettings;
+const { category, storyName, dataHook } = storySettings;
 const backgroundImageUrl =
   'https://static.wixstatic.com/media/89ea07a19c3d415e99a8a8a3c0ab1de8.jpg/v1/fill/w_343,h_343,al_c,q_80,usm_0.66_1.00_0.01/89ea07a19c3d415e99a8a8a3c0ab1de8.jpg';
 const imageUrls = {
@@ -51,7 +51,7 @@ const exampleProps = {
 };
 
 export default {
-  category: kind,
+  category,
   storyName,
 
   component: CardGalleryItem,

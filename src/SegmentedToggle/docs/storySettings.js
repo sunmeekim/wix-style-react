@@ -1,9 +1,7 @@
 import { Category } from '../../../stories/storiesHierarchy';
 
 export const storySettings = {
-  kind: Category.SELECTION,
   category: Category.SELECTION,
-
   storyName: '4.6 SegmentedToggle',
   dataHook: 'story-segmented-toggle',
 };

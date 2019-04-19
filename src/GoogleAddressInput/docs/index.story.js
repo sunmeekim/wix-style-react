@@ -32,7 +32,7 @@ render(<ExampleWithFormField/>);
 `;
 
 export default {
-  category: storySettings.kind,
+  category: storySettings.category,
   storyName: storySettings.storyName,
 
   component: GoogleAddressInput,

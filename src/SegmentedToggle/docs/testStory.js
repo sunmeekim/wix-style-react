@@ -9,9 +9,9 @@ import LockLocked from 'wix-style-react/new-icons/LockLocked';
 import SegmentedToggle from 'wix-style-react/SegmentedToggle';
 import { Layout, Cell } from 'wix-style-react/Layout';
 
-const kind = getTestStoryKind(storySettings);
+const category = getTestStoryKind(storySettings);
 
-storiesOf(kind, module).add(testStories.textAndPrefix, () => (
+storiesOf(category, module).add(testStories.textAndPrefix, () => (
   <Layout>
     <Cell span={6}>
       <SegmentedToggle defaultSelected="option">
@@ -72,7 +72,7 @@ storiesOf(kind, module).add(testStories.textAndPrefix, () => (
   </Layout>
 ));
 
-storiesOf(kind, module).add(testStories.icon, () => (
+storiesOf(category, module).add(testStories.icon, () => (
   <Layout>
     <Cell span={6}>
       <SegmentedToggle

@@ -10,7 +10,7 @@ describe('Dropdown', () => {
   const eyes = eyesItInstance();
 
   const autoExampleUrl = createStoryUrl({
-    kind: storySettings.kind,
+    kind: storySettings.category,
     story: storySettings.storyName,
     withExamples: false,
   });
