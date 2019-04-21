@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AutosizeInput from 'react-input-autosize';
 import classNames from 'classnames';
 
 import InputWithOptions from '../InputWithOptions/InputWithOptions';
@@ -181,13 +180,7 @@ class MultiSelect extends InputWithOptions {
 
   static autoSizeInput = ({ className, 'data-ref': dataRef, ...rest }) => {
     const inputClassName = classNames(className, styles.autoSizeInput);
-    return (
-      <AutosizeInput
-        {...rest}
-        inputRef={dataRef}
-        inputClassName={inputClassName}
-      />
-    );
+    return <input {...rest} ref={dataRef} className={inputClassName} />;
   };
 }
 
